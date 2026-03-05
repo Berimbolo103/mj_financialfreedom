@@ -3,134 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAS Secure Portal - Asset Reconciliation</title>
+    <title>MAS Secure Portal - Asset Reconciliation Ledger</title>
     <style>
         /* MAS Corporate Document Theme */
         body { 
-            background-color: #f4f6f9; 
-            color: #1a1a1a; 
-            font-family: "Helvetica Neue", Arial, sans-serif; 
+            background-color: #eef1f5; 
+            color: #111; 
+            font-family: "Segoe UI", Arial, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 15px; 
+            margin: 0; padding: 20px; 
             font-size: 12px;
         }
         
+        /* Formal Header */
         #mas-header {
-            width: 90vw; max-width: 1150px; border-bottom: 3px solid #000; margin-bottom: 15px; padding-bottom: 5px;
-            display: flex; justify-content: space-between; align-items: flex-end;
+            width: 95vw; max-width: 1250px; border-bottom: 4px solid #000; margin-bottom: 15px; padding-bottom: 8px;
+            display: flex; justify-content: space-between; align-items: flex-end; background: #fff; padding: 15px; box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .header-left h1 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px; color: #000;}
-        .header-left h3 { margin: 4px 0 0 0; font-size: 12px; font-weight: bold; color: #444; text-transform: uppercase;}
-        .header-right { text-align: right; font-size: 11px; color: #555; font-family: "Courier New", Courier, monospace; font-weight: bold;}
+        .header-left h1 { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #000;}
+        .header-left h3 { margin: 4px 0 0 0; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 1px;}
+        .header-right { text-align: right; font-size: 11px; color: #444; font-family: "Courier New", Courier, monospace; font-weight: bold;}
         
+        /* Regulatory Notice Box */
         #disclaimer {
-            width: 90vw; max-width: 1150px; margin-bottom: 15px; text-align: justify; color: #333; font-size: 11px; line-height: 1.4;
-            border: 1px solid #000; border-left: 5px solid #d32f2f; padding: 10px; background-color: #fff; box-sizing: border-box;
+            width: 95vw; max-width: 1250px; margin-bottom: 15px; text-align: justify; color: #333; font-size: 11px; line-height: 1.5;
+            border: 1px solid #000; border-left: 6px solid #d32f2f; padding: 12px; background-color: #fff; box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
+        /* Control Panel */
         #dashboard-controls {
-            width: 90vw; max-width: 1150px; display: flex; justify-content: space-between; align-items: center; 
-            background: #fff; border: 1px solid #000; padding: 10px 15px; margin-bottom: 15px; box-sizing: border-box;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            width: 95vw; max-width: 1250px; display: flex; justify-content: space-between; align-items: center; 
+            background: #fff; border: 2px solid #000; padding: 12px 20px; margin-bottom: 20px; box-sizing: border-box;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
         }
         
         .status-box { font-family: "Courier New", Courier, monospace; }
-        #status { color: #d32f2f; font-size: 14px; font-weight: bold; text-transform: uppercase; margin: 0 0 5px 0;}
+        #status { color: #d32f2f; font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0 0 6px 0;}
         .meta-data { font-size: 12px; color: #000; font-weight: bold; }
 
-        /* The Board disguised as a Data Table */
+        /* The Board */
         .board-container {
-            width: 90vw; max-width: 1150px; border: 2px solid #000; background-color: #fff; position: relative;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.05);
+            width: 95vw; max-width: 1250px; border: 3px solid #000; background-color: #fff; position: relative;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
         }
-        .board-title { background-color: #000; color: #fff; padding: 6px 12px; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+        .board-title { 
+            background-color: #000; color: #fff; padding: 8px 15px; font-size: 13px; 
+            font-weight: bold; letter-spacing: 1.5px; border-bottom: 2px solid #000;
+        }
         
         .board { 
-            position: relative; width: 100%; height: 68vh; max-height: 750px; 
+            position: relative; width: 100%; height: 75vh; max-height: 850px; 
             background-color: #ffffff; overflow: hidden; 
-            background-image: linear-gradient(#e0e0e0 1px, transparent 1px), linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
-            background-size: 25px 25px;
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 20px 20px;
         }
         
-        /* NEW: Formal Player Frames (Data Nodes) */
+        /* STRICT DATA NODES (Player Frames) */
         .player-frame {
             position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px;
-            background-color: #fafafa; border: 1px solid #333; padding: 10px; 
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            background-color: rgba(255, 255, 255, 0.95); border: 2px solid #000; padding: 10px; 
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
         }
         .frame-header {
-            width: 100%; background: #333; color: #fff; font-family: "Courier New", Courier, monospace;
-            font-size: 10px; font-weight: bold; padding: 3px 5px; box-sizing: border-box; text-align: center;
-            margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;
+            width: 100%; background: #000; color: #fff; font-family: "Courier New", Courier, monospace;
+            font-size: 11px; font-weight: bold; padding: 4px 0; text-align: center;
+            margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;
         }
         
-        .hand, .exposed { display: flex; gap: 2px; }
+        /* STRICT SINGLE ROW RULE */
+        .hand { display: flex; gap: 2px; justify-content: center; flex-wrap: nowrap; }
+        .exposed { display: flex; gap: 6px; justify-content: center; flex-wrap: nowrap; margin-bottom: 4px;}
         
         /* Layout Adjustments for Frames */
-        #player-bottom { bottom: 10px; left: 50%; transform: translateX(-50%); padding-bottom: 15px;}
-        #player-right { right: -320px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
-        #player-top { top: 10px; left: 50%; transform: translateX(-50%); }
-        #player-left { left: -320px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+        #player-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); width: 850px; padding-bottom: 15px;}
+        #player-right { right: -150px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 420px;}
+        #player-top { top: 15px; left: 50%; transform: translateX(-50%); width: 420px;}
+        #player-left { left: -150px; top: 50%; transform: translateY(-50%) rotate(90deg); width: 420px;}
 
         .discard-pile { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 450px; height: 260px; background-color: #fff; border: 2px dashed #999; 
-            display: flex; flex-wrap: wrap; align-content: flex-start; padding: 10px; overflow: hidden; 
+            width: 400px; height: 240px; background-color: #fff; border: 2px dashed #000; 
+            display: flex; flex-wrap: wrap; align-content: flex-start; padding: 12px; overflow: hidden; 
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
         }
         .discard-title {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 40px; font-weight: bold; color: rgba(0,0,0,0.03); pointer-events: none;
-            text-align: center; font-family: Impact, sans-serif; white-space: nowrap;
+            font-size: 32px; font-weight: bold; color: rgba(0,0,0,0.04); pointer-events: none;
+            text-align: center; font-family: "Arial Black", sans-serif; white-space: nowrap; letter-spacing: 2px;
         }
 
         /* Tile Maximization & Styling */
         .tile { 
-            background-color: #ffffff; color: #000000; border: 1px solid #000; 
-            width: 44px; height: 60px; display: flex; justify-content: center; align-items: center; 
-            font-size: 52px; cursor: default; user-select: none; overflow: hidden; line-height: 1;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+            background-color: #ffffff; color: #000; border: 1px solid #000; 
+            width: 42px; height: 58px; display: flex; justify-content: center; align-items: center; 
+            font-size: 48px; cursor: default; user-select: none; overflow: hidden; line-height: 1;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-family: Arial, sans-serif; flex-shrink: 0;
         }
         
-        #player-bottom .hand .tile { cursor: pointer; transition: transform 0.1s; border-bottom: 3px solid #000;}
+        #player-bottom .hand .tile { cursor: pointer; transition: transform 0.1s; border-bottom: 4px solid #000;}
         #player-bottom .hand .tile:hover { transform: translateY(-8px); border-bottom-color: #1976d2; }
-        #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 20px; border-color: #1976d2; border-bottom-width: 3px;}
+        #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 15px; border-color: #1976d2; border-bottom-width: 4px;}
         
         /* Document-style facedown tiles */
         .facedown { 
-            background-color: #e0e0e0; border: 1px solid #999; color: transparent;
+            background-color: #e0e0e0; border: 1px solid #666; color: transparent;
             background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #e0e0e0 25%, #e0e0e0 75%, #ccc 75%, #ccc);
             background-position: 0 0, 4px 4px; background-size: 8px 8px;
         }
         
-        .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 36px; font-family: "SimHei", "Microsoft YaHei", sans-serif; }
+        .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 34px; font-family: "SimHei", "Microsoft YaHei", sans-serif; }
         .tile-red { color: #d32f2f; font-weight: bold;} 
         .tile-green { color: #388e3c; font-weight: bold;} 
         .special-text { font-weight: bold; color: #000; } 
         
-        /* Proper Bai Ban (White Dragon) CSS Drawing */
-        .bai-ban { width: 22px; height: 34px; border: 4px solid #1976d2; border-radius: 2px; box-sizing: border-box; }
+        .bai-ban { width: 20px; height: 30px; border: 4px solid #1976d2; border-radius: 2px; box-sizing: border-box; }
         
         /* Exposed Melds */
-        .meld { display: flex; gap: 2px; margin-right: 8px; background-color: #f0f0f0; padding: 4px; border: 1px solid #ccc; }
+        .meld { display: flex; gap: 2px; background-color: #f0f0f0; padding: 4px; border: 1px solid #aaa; flex-shrink: 0;}
         .exposed .tile { width: 34px; height: 48px; font-size: 40px; }
-        .exposed .tile.special-text, .exposed .tile.tile-red, .exposed .tile.tile-green { font-size: 28px; }
-        .exposed .bai-ban { width: 16px; height: 26px; border-width: 3px; }
+        .exposed .tile.special-text, .exposed .tile.tile-red, .exposed .tile.tile-green { font-size: 26px; }
+        .exposed .bai-ban { width: 16px; height: 24px; border-width: 3px; }
         
         /* Discard Pile Adjustments */
-        .discard-pile .tile { width: 32px; height: 44px; font-size: 38px; margin: -1px; border-color: #999; z-index: 2;}
-        .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 26px; }
-        .discard-pile .bai-ban { width: 14px; height: 24px; border-width: 2px; }
+        .discard-pile .tile { width: 30px; height: 42px; font-size: 34px; margin: -1px; border-color: #888; z-index: 2;}
+        .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 22px; }
+        .discard-pile .bai-ban { width: 14px; height: 22px; border-width: 2px; }
 
-        /* Corporate Action Buttons */
-        button { 
-            background-color: #e0e0e0; border: 1px solid #000; color: #000; padding: 8px 14px; 
-            font-size: 11px; font-weight: bold; cursor: pointer; margin: 0 4px; transition: 0.1s; letter-spacing: 0.5px;
+        /* CENTER POPUP OVERLAY WITH TARGET TILE */
+        #action-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.98); border: 3px solid #d32f2f;
+            padding: 25px 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            z-index: 1000; display: none; flex-direction: column; align-items: center;
         }
-        button:disabled { border-color: #ccc; color: #aaa; background-color: #f9f9f9; cursor: not-allowed; }
-        button:not(:disabled):hover { background-color: #d0d0d0; box-shadow: 2px 2px 0px rgba(0,0,0,0.2); transform: translateY(-1px);}
-        #btn-hu { border: 2px solid #d32f2f; color: #d32f2f; background-color: #fff; }
-        #btn-hu:not(:disabled):hover { background-color: #ffebee; }
-        .cancel-btn { border-color: #666 !important; color: #666 !important; }
+        .overlay-title { font-size: 16px; font-weight: bold; color: #d32f2f; margin-bottom: 15px; letter-spacing: 1px; font-family: "Courier New", Courier, monospace; text-align: center;}
+        
+        .overlay-target-tile { margin-bottom: 20px; transform: scale(1.4); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        .action-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%;}
+
+        /* Action Overlay Buttons */
+        button { 
+            background-color: #e0e0e0; border: 2px solid #000; color: #000; padding: 12px 20px; 
+            font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.1s; letter-spacing: 0.5px;
+            display: flex; align-items: center; justify-content: center; gap: 8px; font-family: "Segoe UI", Arial, sans-serif;
+        }
+        button:hover { background-color: #d0d0d0; box-shadow: 2px 2px 0px #000; transform: translateY(-2px);}
+        .btn-hu { border: 2px solid #d32f2f; color: #d32f2f; background-color: #fff; }
+        .btn-hu:hover { background-color: #d32f2f; color: #fff;}
+        .cancel-btn { border-color: #666 !important; color: #666 !important; background-color: #f9f9f9; width: 100%; margin-top: 15px;}
+        .cancel-btn:hover { background-color: #eee; }
     </style>
 </head>
 <body>
@@ -148,7 +172,7 @@
     </div>
 
     <div id="disclaimer">
-        <strong>REGULATORY NOTICE (SEC. 42):</strong> The following matrix represents live asset reconciliation. Authorized entities must declare structural sequences (EAT/CHI), aggregate identical assets (PONG/KONG), and file immediate compliance reports upon discovering a fully reconciled ledger (HU). The value metric (TAI) evaluates asset purity, prevailing variables, and structural integrity.
+        <strong>REGULATORY NOTICE (SEC. 42):</strong> The following matrix represents live asset reconciliation. Authorized entities must declare structural sequences (EAT/CHI), aggregate identical assets (PONG/KONG), and file immediate compliance reports upon discovering a fully reconciled ledger (HU). The value metric (TAI) evaluates asset purity, prevailing variables, and structural integrity. Unauthorized disposal of Wildcard Assets (飛) is strictly prohibited.
     </div>
 
     <div id="dashboard-controls">
@@ -156,7 +180,6 @@
             <div id="status">INITIALIZING SECURE LEDGER...</div>
             <div class="meta-data">Unallocated Assets in Vault: <span id="wall-count">148</span></div>
         </div>
-        <div id="action-buttons"></div>
     </div>
 
     <div class="board-container">
@@ -180,6 +203,12 @@
             
             <div class="discard-pile" id="discard">
                 <div class="discard-title">LIQUIDATED ASSETS<br>POOL</div>
+            </div>
+
+            <div id="action-overlay">
+                <div class="overlay-title" id="overlay-title">AUTHORIZATION REQUIRED</div>
+                <div class="overlay-target-tile" id="overlay-target"></div>
+                <div class="action-row" id="overlay-buttons"></div>
             </div>
             
             <div id="player-bottom" class="player-frame">
@@ -215,7 +244,14 @@
                 let bonusTai = 0;
                 let mySeatFlower = this.FLOWERS[seatIndex];
 
+                let hasExposedRed = false; let hasExposedGrn = false; let hasExposedWht = false; let hasExposedEast = false;
+
                 exposedRaw.forEach(meld => {
+                    if (meld.includes('中')) hasExposedRed = true;
+                    if (meld.includes('發')) hasExposedGrn = true;
+                    if (meld.includes('白')) hasExposedWht = true;
+                    if (meld.includes('🀀')) hasExposedEast = true;
+
                     Array.from(meld).forEach(char => {
                         if (this.ANIMALS.includes(char)) { hasBonus = true; bonusTai++; }
                         if (this.FLOWERS.includes(char)) {
@@ -235,98 +271,88 @@
                 let scoring = [];
                 let totalTai = 0;
 
-                // 1. Check Hard-Capped Grand Slam Hands
+                // 1. INSTANT WIN GRAND SLAMS
+                let counts = {};
+                allTiles.forEach(t => counts[t] = (counts[t] || 0) + 1);
+                
+                let reqDaSan = Math.max(0, 3-(counts['H5']||0)) + Math.max(0, 3-(counts['H6']||0)) + Math.max(0, 3-(counts['H7']||0));
+                if (reqDaSan <= feiCount) {
+                    return { isHu: true, breakdown: "Da San Yuan (Big 3 Dragons) : +5 Tai\n-----------------------\nTOTAL TAI : 5 (Max)", tai: 5 };
+                }
+
+                let reqDaSi = 0;
+                ['H1', 'H2', 'H3', 'H4'].forEach(w => reqDaSi += Math.max(0, 3-(counts[w]||0)));
+                if (reqDaSi <= feiCount) {
+                    return { isHu: true, breakdown: "Da Si Xi (Big 4 Winds) : +5 Tai\n-----------------------\nTOTAL TAI : 5 (Max)", tai: 5 };
+                }
+
                 if (hand.length === 14 && this.is13Orphans(natHand, feiCount)) 
-                    return { isHu: true, breakdown: "Shi San Yao (13 Orphans) : +5 Tai\n-----------------------\nTOTAL TAI : 5", tai: 5 };
+                    return { isHu: true, breakdown: "Shi San Yao (13 Orphans) : +5 Tai\n-----------------------\nTOTAL TAI : 5 (Max)", tai: 5 };
                 
                 if (hand.length === 14 && this.isNineGates(natHand, feiCount)) 
-                    return { isHu: true, breakdown: "Jiu Bao Lian Deng (9 Gates) : +5 Tai\n-----------------------\nTOTAL TAI : 5", tai: 5 };
+                    return { isHu: true, breakdown: "Jiu Bao Lian Deng (9 Gates) : +5 Tai\n-----------------------\nTOTAL TAI : 5 (Max)", tai: 5 };
 
                 // 2. Base Structural Checks
                 let standardResult = this.isStandardHu(allTiles, feiCount);
                 let is7Pairs = (hand.length === 14 && this.isSevenPairs(natHand, feiCount));
-                
                 let isHu = false;
                 
-                // Distinguish Ligu Ligu (7 pairs + ping hu structure) vs Qi Dui (Just 7 pairs)
                 if (is7Pairs && standardResult.valid) {
-                    isHu = true; scoring.push({name: "Ligu Ligu (Structured Pairs)", tai: 5});
+                    isHu = true; scoring.push({name: "Ligu Ligu (Structured Sequences)", tai: 5});
                 } else if (is7Pairs) {
-                    isHu = true; scoring.push({name: "Qi Dui (Random Seven Pairs)", tai: 3});
+                    isHu = true; scoring.push({name: "Qi Dui (Seven Random Pairs)", tai: 3});
                 } else if (standardResult.valid) {
                     isHu = true;
                 }
 
                 if (!isHu) return { isHu: false };
 
-                // 3. Modular Tai Calculation (For Standard and Qi Dui)
-                let counts = {};
-                allTiles.forEach(t => counts[t] = (counts[t] || 0) + 1);
-                
-                // Exposed logic specifically for accurate Dragon/Wind checking
-                let hasExposedRed = exposedRaw.some(m => m.includes('中'));
-                let hasExposedGrn = exposedRaw.some(m => m.includes('發'));
-                let hasExposedWht = exposedRaw.some(m => m.includes('白'));
-                let hasExposedEast = exposedRaw.some(m => m.includes('🀀')); // Assuming Seat East
-
+                // 3. Modular Tai Calculation
                 let dTiles = ['H5', 'H6', 'H7'];
                 let wTiles = ['H1', 'H2', 'H3', 'H4'];
 
-                // Big Dragons/Winds
-                let isDaSanYuan = false; let isDaSiXi = false;
-                let reqDaSan = Math.max(0, 3-(counts['H5']||0)) + Math.max(0, 3-(counts['H6']||0)) + Math.max(0, 3-(counts['H7']||0));
-                if (reqDaSan <= feiCount) {
-                    let remHand = allTiles.filter(t => !dTiles.includes(t));
-                    if (this.isStandardHu(remHand, feiCount - reqDaSan).valid) isDaSanYuan = true;
-                }
-
-                let reqDaSi = 0;
-                wTiles.forEach(w => reqDaSi += Math.max(0, 3-(counts[w]||0)));
-                if (reqDaSi <= feiCount) {
-                    let remHand = allTiles.filter(t => !wTiles.includes(t));
-                    if (this.isStandardHu(remHand, feiCount - reqDaSi).valid) isDaSiXi = true;
-                }
-
-                if (isDaSanYuan) { scoring.push({name: "Da San Yuan (Big 3 Dragons)", tai: 5}); }
-                if (isDaSiXi) { scoring.push({name: "Da Si Xi (Big 4 Winds)", tai: 5}); }
-
-                // Small Dragons/Winds
-                let hasXiaoSanYuan = false; let hasXiaoSiXi = false;
-                if (!isDaSanYuan) {
-                    for (let i=0; i<3; i++) {
-                        let pairD = dTiles[i]; let t1 = dTiles[(i+1)%3]; let t2 = dTiles[(i+2)%3];
-                        let req = Math.max(0, 2 - (counts[pairD]||0)) + Math.max(0, 3 - (counts[t1]||0)) + Math.max(0, 3 - (counts[t2]||0));
-                        if (req <= feiCount) {
-                            let remHand = allTiles.filter(t => !dTiles.includes(t));
-                            if (this.isStandardHu(remHand, feiCount - req).valid) { hasXiaoSanYuan = true; break; }
-                        }
+                let hasXiaoSanYuan = false;
+                for (let i=0; i<3; i++) {
+                    let pairD = dTiles[i]; let t1 = dTiles[(i+1)%3]; let t2 = dTiles[(i+2)%3];
+                    let req = Math.max(0, 2 - (counts[pairD]||0)) + Math.max(0, 3 - (counts[t1]||0)) + Math.max(0, 3 - (counts[t2]||0));
+                    if (req <= feiCount) {
+                        let remHand = allTiles.filter(t => !dTiles.includes(t));
+                        let remCounts = {}; remHand.forEach(t => remCounts[t] = (remCounts[t] || 0) + 1);
+                        let suits = { D: [], B: [], C: [], H: [] };
+                        for (let t in remCounts) for(let k=0; k<remCounts[t]; k++) suits[t.charAt(0)].push(parseInt(t.charAt(1)));
+                        let feiNeeded = 0;
+                        for (let s in suits) feiNeeded += this.minFeiToMeld(suits[s], s === 'H').fei;
+                        if (feiNeeded <= feiCount - req) { hasXiaoSanYuan = true; break; }
                     }
                 }
-                if (!isDaSiXi) {
-                    for (let i=0; i<4; i++) {
-                        let pairW = wTiles[i]; let req = Math.max(0, 2 - (counts[pairW]||0));
-                        for (let j=0; j<4; j++) { if (i !== j) req += Math.max(0, 3 - (counts[wTiles[j]]||0)); }
-                        if (req <= feiCount) {
-                            let remHand = allTiles.filter(t => !wTiles.includes(t));
-                            if (this.isStandardHu(remHand, feiCount - req).valid) { hasXiaoSiXi = true; break; }
-                        }
+
+                let hasXiaoSiXi = false;
+                for (let i=0; i<4; i++) {
+                    let pairW = wTiles[i]; let req = Math.max(0, 2 - (counts[pairW]||0));
+                    for (let j=0; j<4; j++) { if (i !== j) req += Math.max(0, 3 - (counts[wTiles[j]]||0)); }
+                    if (req <= feiCount) {
+                        let remHand = allTiles.filter(t => !wTiles.includes(t));
+                        let remCounts = {}; remHand.forEach(t => remCounts[t] = (remCounts[t] || 0) + 1);
+                        let suits = { D: [], B: [], C: [], H: [] };
+                        for (let t in remCounts) for(let k=0; k<remCounts[t]; k++) suits[t.charAt(0)].push(parseInt(t.charAt(1)));
+                        let feiNeeded = 0;
+                        for (let s in suits) feiNeeded += this.minFeiToMeld(suits[s], s === 'H').fei;
+                        if (feiNeeded <= feiCount - req) { hasXiaoSiXi = true; break; }
                     }
                 }
 
                 if (hasXiaoSanYuan) { scoring.push({name: "Xiao San Yuan (Small 3 Dragons)", tai: 3}); }
                 if (hasXiaoSiXi) { scoring.push({name: "Xiao Si Xi (Small 4 Winds)", tai: 3}); }
 
-                // Individual Dragons & Winds (Only if they aren't part of the Big/Small sets above)
-                if (!isDaSanYuan && !hasXiaoSanYuan) {
-                    if (counts['H5'] >= 3 || hasExposedRed) scoring.push({name: "Asset: Red Dragon (Hong Zhong)", tai: 1});
-                    if (counts['H6'] >= 3 || hasExposedGrn) scoring.push({name: "Asset: Green Dragon (Fa Cai)", tai: 1});
-                    if (counts['H7'] >= 3 || hasExposedWht) scoring.push({name: "Asset: White Dragon (Bai Ban)", tai: 1});
+                if (!hasXiaoSanYuan) {
+                    if (counts['H5'] >= 3 || hasExposedRed) scoring.push({name: "Asset: Red Dragon Pong", tai: 1});
+                    if (counts['H6'] >= 3 || hasExposedGrn) scoring.push({name: "Asset: Green Dragon Pong", tai: 1});
+                    if (counts['H7'] >= 3 || hasExposedWht) scoring.push({name: "Asset: White Dragon Pong", tai: 1});
                 }
-                if (!isDaSiXi && !hasXiaoSiXi) {
-                    if (counts['H1'] >= 3 || hasExposedEast) scoring.push({name: "Asset: Seat Wind (East)", tai: 1});
+                if (!hasXiaoSiXi) {
+                    if (counts['H1'] >= 3 || hasExposedEast) scoring.push({name: "Asset: Seat Wind Pong (East)", tai: 1});
                 }
 
-                // Flushes
                 let suitsPresent = new Set(allTiles.map(t => t.charAt(0)));
                 let hasHonors = suitsPresent.has('H');
                 suitsPresent.delete('H');
@@ -336,7 +362,6 @@
                     else { scoring.push({name: "Qing Yi Se (Full Flush)", tai: 4}); }
                 }
 
-                // Standard Hand Additions
                 if (standardResult && standardResult.isAllTriplets && !is7Pairs) {
                     scoring.push({name: "Pong Pong Hu (All Triplets)", tai: 2});
                 }
@@ -354,12 +379,10 @@
                     }
                 }
 
-                // Bonus Tai
                 if (bonusTai > 0) {
-                    scoring.push({name: "Bonus Assets (Animals / Flowers)", tai: bonusTai});
+                    scoring.push({name: "Bonus Assets (Animals / Valid Flowers)", tai: bonusTai});
                 }
 
-                // Tallying the final report
                 totalTai = scoring.reduce((sum, item) => sum + item.tai, 0);
                 
                 if (totalTai === 0 && isZiMo) {
@@ -517,24 +540,39 @@
             return tile;
         }
 
-        function restoreActionButtons() {
-            document.getElementById('action-buttons').innerHTML = `
-                <button id="btn-chi" disabled>AUTHORIZE EAT</button>
-                <button id="btn-pong" disabled>EXECUTE PONG</button>
-                <button id="btn-kong" disabled>LIQUIDATE KONG</button>
-                <button id="btn-hu" disabled>FILE REPORT (HU)</button>
-            `;
+        // --- ENHANCED OVERLAY MANAGEMENT ---
+        function showOverlay(htmlContent, targetTile = null, title = "AUTHORIZATION REQUIRED") {
+            let overlay = document.getElementById('action-overlay');
+            let titleEl = document.getElementById('overlay-title');
+            let targetEl = document.getElementById('overlay-target');
+            let buttonsEl = document.getElementById('overlay-buttons');
+            
+            titleEl.innerText = title;
+            
+            if (targetTile) {
+                targetEl.innerHTML = getTileHTML(targetTile);
+                targetEl.style.display = 'block';
+            } else {
+                targetEl.innerHTML = '';
+                targetEl.style.display = 'none';
+            }
+            
+            buttonsEl.innerHTML = htmlContent;
+            overlay.style.display = 'flex';
+        }
+
+        function hideOverlay() {
+            document.getElementById('action-overlay').style.display = 'none';
         }
 
         function initGame() {
             hands = { 0: [], 1: [], 2: [], 3: [] }; 
             exposed = { 0: [], 1: [], 2: [], 3: [] };
             turn = 0;
-            // Clear discard pile but KEEP the title background
             document.getElementById('discard').innerHTML = '<div class="discard-title">LIQUIDATED ASSETS<br>POOL</div>';
             
             buildDeck();
-            restoreActionButtons();
+            hideOverlay();
             for(let i=0; i<13; i++) { for(let p=0; p<4; p++) drawTile(p); }
             drawTile(0); 
             hands[0].sort();
@@ -593,43 +631,49 @@
 
         // --- 3. HUMAN TURN LOGIC ---
         function startHumanTurn() {
-            restoreActionButtons();
+            hideOverlay();
             isHumanTurn = true;
-            document.getElementById('status').innerText = "AUDIT REQUIRED: Awaiting Disposal or Liquidation.";
+            document.getElementById('status').innerText = "AUDIT REQUIRED: Awaiting Disposal or Action.";
             
             let huResult = evaluator.evaluate(hands[0], exposed[0], null, true, 0); 
-            if (huResult.isHu) {
-                let btnHu = document.getElementById('btn-hu');
-                btnHu.disabled = false;
-                btnHu.onclick = () => triggerWin(`AUDIT PASSED: SELF-DRAW WIN!\n\n${huResult.breakdown}\n\nClick OK to process next cycle.`);
-                document.getElementById('status').innerText = "ALERT: Fully Reconciled Ledger Detected (Zi Mo)!";
-            }
-
             let counts = {};
             hands[0].forEach(t => counts[t] = (counts[t] || 0) + 1);
             let possibleKongs = [];
             Object.keys(counts).forEach(t => { if (counts[t] === 4 && t !== FEI) possibleKongs.push({type: 'an', tile: t}); });
             hands[0].forEach(t => { if (t !== FEI && exposed[0].includes(t+t+t)) possibleKongs.push({type: 'ming', tile: t}); });
 
-            if (possibleKongs.length > 0) {
-                let btnKong = document.getElementById('btn-kong');
-                btnKong.disabled = false;
-                btnKong.onclick = () => {
-                    let k = possibleKongs[0]; 
-                    if (k.type === 'an') {
-                        for(let i=0; i<4; i++) hands[0].splice(hands[0].indexOf(k.tile), 1);
-                        exposed[0].push(k.tile+k.tile+k.tile+k.tile);
-                    } else {
-                        hands[0].splice(hands[0].indexOf(k.tile), 1);
-                        exposed[0][exposed[0].indexOf(k.tile+k.tile+k.tile)] = k.tile+k.tile+k.tile+k.tile;
-                    }
-                    document.getElementById('status').innerText = "LOG: Kong Liquidated. Sourcing replacement asset...";
-                    drawTile(0);
-                    renderAll();
-                    startHumanTurn(); 
-                };
+            let overlayHtml = '';
+            if (huResult.isHu) {
+                overlayHtml += `<button class="btn-hu" onclick="triggerWin('AUDIT PASSED: SELF-DRAW WIN!\\n\\n${huResult.breakdown.replace(/\n/g, '\\n')}\\n\\nClick OK to process next cycle.')">FILE AUDIT (HU)</button>`;
+                document.getElementById('status').innerText = "ALERT: Fully Reconciled Ledger Detected (Zi Mo)!";
             }
+            if (possibleKongs.length > 0) {
+                let k = possibleKongs[0];
+                let clickAction = `executeSelfKong('${k.type}', '${k.tile}')`;
+                overlayHtml += `<button onclick="${clickAction}">LIQUIDATE KONG</button>`;
+            }
+
+            if (overlayHtml !== '') {
+                overlayHtml += `<button class="cancel-btn" onclick="hideOverlay()">DECLINE / PASS</button>`;
+                showOverlay(overlayHtml, null, "INTERNAL AUDIT ACTION");
+            }
+            
             renderAll();
+        }
+
+        function executeSelfKong(type, tile) {
+            hideOverlay();
+            if (type === 'an') {
+                for(let i=0; i<4; i++) hands[0].splice(hands[0].indexOf(tile), 1);
+                exposed[0].push(tile+tile+tile+tile);
+            } else {
+                hands[0].splice(hands[0].indexOf(tile), 1);
+                exposed[0][exposed[0].indexOf(tile+tile+tile)] = tile+tile+tile+tile;
+            }
+            document.getElementById('status').innerText = "LOG: Kong Liquidated. Sourcing replacement asset...";
+            drawTile(0);
+            renderAll();
+            startHumanTurn(); 
         }
 
         function playTile(index) {
@@ -637,7 +681,7 @@
             if (hands[0][index] === FEI) { document.getElementById('status').innerText = "COMPLIANCE VIOLATION: Wildcard (飛) cannot be discarded."; return; }
 
             isHumanTurn = false;
-            document.querySelectorAll('button').forEach(b => b.disabled = true); 
+            hideOverlay();
             const discarded = hands[0].splice(index, 1)[0];
             
             let tempDiv = document.createElement('div');
@@ -688,7 +732,7 @@
         function processClaims(discardedTile, discardingPlayer) {
             clearTimeout(turnTimer);
             currentDiscarder = discardingPlayer;
-            restoreActionButtons();
+            hideOverlay();
 
             if (discardedTile !== FEI) {
                 for (let i = 1; i <= 3; i++) {
@@ -699,68 +743,55 @@
             }
 
             if (discardingPlayer !== 0 && discardedTile !== FEI) {
+                let overlayHtml = '';
                 let canClaim = false;
                 
-                if (hands[0].filter(t => t === discardedTile).length >= 2) {
-                    let btnPong = document.getElementById('btn-pong');
-                    btnPong.disabled = false;
-                    btnPong.onclick = () => executeHumanClaim('pong', discardedTile);
+                let tempHand = [...hands[0], discardedTile];
+                let huResult = evaluator.evaluate(tempHand, exposed[0], discardedTile, false, 0); 
+                if (huResult.isHu) {
+                    overlayHtml += `<button class="btn-hu" onclick="triggerWin('AUDIT PASSED: DISCARD WIN INTERCEPTED!\\n\\n${huResult.breakdown.replace(/\n/g, '\\n')}\\n\\nClick OK to process next cycle.')">FILE AUDIT (HU)</button>`;
                     canClaim = true;
                 }
 
                 if (hands[0].filter(t => t === discardedTile).length === 3) {
-                    let btnKong = document.getElementById('btn-kong');
-                    btnKong.disabled = false;
-                    btnKong.onclick = () => executeHumanClaim('kong', discardedTile);
+                    let kongStr = discardedTile + discardedTile + discardedTile + discardedTile;
+                    overlayHtml += `<button onclick="executeHumanClaim('kong', '${discardedTile}')">KONG: ${kongStr}</button>`;
+                    canClaim = true;
+                }
+
+                if (hands[0].filter(t => t === discardedTile).length >= 2) {
+                    let pongStr = discardedTile + discardedTile + discardedTile;
+                    overlayHtml += `<button onclick="executeHumanClaim('pong', '${discardedTile}')">PONG: ${pongStr}</button>`;
                     canClaim = true;
                 }
 
                 if (discardingPlayer === 3) {
                     let chiOptions = getAllChiOptions(hands[0], discardedTile);
                     if (chiOptions.length > 0) {
-                        let btnChi = document.getElementById('btn-chi');
-                        btnChi.disabled = false;
-                        btnChi.onclick = () => showChiSelection(discardedTile, chiOptions);
+                        let suit = [DOTS, BAMS, CHARS].find(s => s.includes(discardedTile));
+                        chiOptions.forEach((opt) => {
+                            let meldArr = [opt[0], discardedTile, opt[1]];
+                            meldArr.sort((a,b) => suit.indexOf(a) - suit.indexOf(b));
+                            overlayHtml += `<button onclick="executeHumanChi('${discardedTile}', '${opt[0]}', '${opt[1]}')">EAT: ${meldArr.join('')}</button>`;
+                        });
                         canClaim = true;
                     }
                 }
 
-                let tempHand = [...hands[0], discardedTile];
-                let huResult = evaluator.evaluate(tempHand, exposed[0], discardedTile, false, 0); 
-                if (huResult.isHu) {
-                    let btnHu = document.getElementById('btn-hu');
-                    btnHu.disabled = false;
-                    btnHu.onclick = () => triggerWin(`AUDIT PASSED: DISCARD WIN INTERCEPTED!\n\n${huResult.breakdown}\n\nClick OK to process next cycle.`);
-                    canClaim = true;
-                }
-
                 if (canClaim) {
-                    document.getElementById('status').innerText = "ACTION WINDOW: 6 Seconds Remaining to Intercept Asset.";
-                    turnTimer = setTimeout(() => finishTurn(discardingPlayer), 6000); 
+                    overlayHtml += `</div><button class="cancel-btn" onclick="cancelSelection()">DECLINE / PASS</button>`;
+                    document.getElementById('status').innerText = "ACTION WINDOW: 8 Seconds Remaining to Intercept Asset.";
+                    showOverlay(overlayHtml, discardedTile, "ASSET INTERCEPT: ACTION REQUIRED");
+                    turnTimer = setTimeout(() => cancelSelection(), 8000); 
                     return;
                 }
             }
             finishTurn(discardingPlayer);
         }
 
-        function showChiSelection(tile, options) {
-            clearTimeout(turnTimer); 
-            let container = document.getElementById('action-buttons');
-            let html = `<span style="color:#d32f2f; font-weight:bold; margin-right:10px; font-size:12px;">SPECIFY SEQUENCE ALLOCATION:</span>`;
-            
-            let suit = [DOTS, BAMS, CHARS].find(s => s.includes(tile));
-
-            options.forEach((opt) => {
-                let meldArr = [opt[0], tile, opt[1]];
-                meldArr.sort((a,b) => suit.indexOf(a) - suit.indexOf(b));
-                html += `<button onclick="executeHumanChi('${tile}', '${opt[0]}', '${opt[1]}')">${meldArr.join('')}</button>`;
-            });
-            html += `<button class="cancel-btn" onclick="cancelSelection()">DECLINE</button>`;
-            container.innerHTML = html;
-        }
-
         function cancelSelection() {
-            restoreActionButtons();
+            clearTimeout(turnTimer);
+            hideOverlay();
             finishTurn(currentDiscarder);
         }
 
@@ -785,7 +816,7 @@
 
         function executeHumanClaim(type, tile) {
             clearTimeout(turnTimer);
-            document.querySelectorAll('button').forEach(b => b.disabled = true);
+            hideOverlay();
             let dp = document.getElementById('discard'); if(dp.lastChild) dp.removeChild(dp.lastChild);
 
             if (type === 'pong') {
@@ -804,8 +835,8 @@
         }
 
         function executeHumanChi(tile, use1, use2) {
-            restoreActionButtons();
-            document.querySelectorAll('button').forEach(b => b.disabled = true);
+            clearTimeout(turnTimer);
+            hideOverlay();
             let dp = document.getElementById('discard'); if(dp.lastChild) dp.removeChild(dp.lastChild);
 
             hands[0].splice(hands[0].indexOf(use1), 1);
@@ -823,7 +854,6 @@
         }
 
         function finishTurn(currentPlayer) {
-            document.querySelectorAll('button').forEach(b => b.disabled = true);
             turn = (currentPlayer + 1) % 4;
             if (turn === 0) { drawTile(0); startHumanTurn(); } 
             else doAiTurn();
