@@ -5,214 +5,268 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>MAS Secure Portal - Financial Asset Reconciliation (FARL-26)</title>
     <style>
-        /* MAS Corporate Document Theme */
+        /* EXTREME MAS CORPORATE THEME */
         body { 
-            background-color: #e3e8ef; color: #111; 
+            background-color: #cfd8dc; color: #111; 
             font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 0 0 20px 0; font-size: 12px; touch-action: manipulation; 
+            margin: 0; padding: 0 0 40px 0; font-size: 12px; touch-action: manipulation; 
             overflow-x: hidden;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.02) 1px, rgba(0,0,0,0.02) 2px);
         }
         
+        /* Top Encrypted Navbar */
         #mas-navbar {
-            width: 100%; background-color: #0b2240; color: #fff; display: flex; justify-content: space-between;
-            padding: 8px 25px; font-size: 11px; font-weight: bold; letter-spacing: 1px; box-sizing: border-box;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3); margin-bottom: 10px; border-bottom: 2px solid #ef5350;
+            width: 100%; background-color: #071526; color: #b5985a; display: flex; justify-content: space-between;
+            padding: 8px 30px; font-size: 11px; font-weight: bold; letter-spacing: 2px; box-sizing: border-box;
+            border-bottom: 3px solid #d32f2f; text-transform: uppercase; font-family: "Courier New", Courier, monospace;
         }
-        .nav-links span { margin-right: 25px; cursor: pointer; opacity: 0.7; transition: 0.2s;}
-        .nav-links span:hover { opacity: 1; color: #90caf9;}
-        .nav-sysinfo { font-family: "Courier New", Courier, monospace; color: #81c784; }
+        .nav-links span { margin-right: 25px; cursor: pointer; transition: 0.2s; color: #fff;}
+        .nav-links span:hover { color: #b5985a; text-shadow: 0 0 5px #b5985a;}
+        .live-indicator { display: inline-block; width: 8px; height: 8px; background-color: #d32f2f; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; box-shadow: 0 0 8px #d32f2f;}
 
-        #security-banner {
-            width: 100%; background-color: #ffebee; color: #b71c1c; text-align: center; padding: 6px;
-            font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
-            border-bottom: 1px solid #ef5350; margin-bottom: 15px;
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
+        /* Official MAS Header with Pure CSS Logo */
         #mas-header {
-            width: 98vw; max-width: 1300px; border-bottom: 5px solid #000; margin-bottom: 10px; padding-bottom: 8px;
-            display: flex; justify-content: space-between; align-items: flex-end; background: #fff; padding: 15px 25px; box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08); border-top: 10px solid #1a365d;
+            width: 98vw; max-width: 1400px; border: 4px double #0b1f3f; margin-top: 15px; margin-bottom: 10px; padding: 20px 30px; 
+            display: flex; justify-content: space-between; align-items: center; background: #fff; box-sizing: border-box;
+            box-shadow: 5px 5px 0px rgba(11, 31, 63, 0.15); border-top: 12px solid #0b1f3f;
         }
-        .header-left h1 { margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; color: #000;}
-        .header-left h3 { margin: 4px 0 0 0; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 1px;}
-        .header-right { text-align: right; font-size: 10px; color: #444; font-family: "Courier New", Courier, monospace; font-weight: bold; line-height: 1.5;}
+        
+        /* CSS Recreation of the MAS Logo */
+        .mas-brand { display: flex; align-items: center; gap: 15px; }
+        .mas-logo-box {
+            background-color: #0b1f3f; width: 75px; height: 75px; 
+            display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        }
+        .mas-logo-circle {
+            background-color: #b5985a; width: 62px; height: 62px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-family: "Times New Roman", Times, serif; font-size: 24px; letter-spacing: 1px;
+        }
+        .mas-brand-text {
+            color: #b5985a; font-family: "Times New Roman", Times, serif; font-size: 26px; line-height: 1.05; letter-spacing: 0.5px;
+        }
+
+        .header-right { text-align: right; font-size: 11px; color: #333; font-family: "Courier New", Courier, monospace; font-weight: bold; line-height: 1.6; border-left: 2px solid #ccc; padding-left: 20px;}
 
         #disclaimer {
-            width: 98vw; max-width: 1300px; margin-bottom: 10px; text-align: justify; color: #333; font-size: 11px; line-height: 1.5;
-            border: 1px solid #ccc; border-left: 6px solid #d32f2f; padding: 12px 20px; background-color: #fff; box-sizing: border-box;
+            width: 98vw; max-width: 1400px; margin-bottom: 15px; text-align: justify; color: #111; font-size: 11px; line-height: 1.6;
+            border: 2px solid #0b1f3f; border-left: 10px solid #d32f2f; padding: 15px 25px; background-color: #fff; box-sizing: border-box;
+            font-family: "Courier New", Courier, monospace; font-weight: bold; box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
         }
 
+        /* Top Ledger Board */
         #ledger-board {
-            width: 98vw; max-width: 1300px; display: flex; justify-content: space-between; align-items: center; 
-            background: #fff; border: 2px solid #000; padding: 10px 15px; margin-bottom: 10px; box-sizing: border-box;
-            font-family: "Courier New", Courier, monospace; font-weight: bold; box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            width: 98vw; max-width: 1400px; display: flex; background: #0b1f3f; border: 3px solid #0b1f3f; 
+            box-sizing: border-box; font-family: "Courier New", Courier, monospace; font-weight: bold; box-shadow: 5px 5px 0px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
         }
-        .ledger-node { padding: 6px 12px; border: 1px solid #aaa; background: #f5f5f5; min-width: 120px; text-align: center; text-transform: uppercase;}
-        .ledger-node.active-dealer { background: #ffebee; border-color: #d32f2f; color: #d32f2f; box-shadow: inset 0 0 5px rgba(211, 47, 47, 0.2);}
-        .ledger-title { font-size: 16px; font-weight: 900; color: #1a365d; background: #e3f2fd; padding: 5px 15px; border: 1px solid #1a365d;}
+        .ledger-title { font-size: 18px; font-weight: 900; color: #fff; padding: 15px 25px; text-align: center; letter-spacing: 2px; border-right: 3px solid #0b1f3f; display: flex; align-items: center; background: #d32f2f;}
+        .ledger-nodes-wrapper { display: flex; flex-grow: 1; width: 100%;}
+        .ledger-node { flex-grow: 1; padding: 15px; border-right: 1px solid #455a64; background: #f0f4f8; display: flex; flex-direction: column; justify-content: center; align-items: center; text-transform: uppercase;}
+        .ledger-node:last-child { border-right: none; }
+        .ledger-node.active-dealer { background: #fffde7; border-bottom: 4px solid #f57f17; color: #000;}
+        .ledger-name { font-size: 13px; margin-bottom: 5px; color: #546e7a;}
+        .ledger-node.active-dealer .ledger-name { color: #f57f17; font-weight: 900;}
+        .ledger-bal { font-size: 20px; color: #2e7d32; font-weight: 900;}
+        .ledger-bal.negative { color: #c62828; }
 
+        /* Dashboard Top Bar */
         #dashboard-controls {
-            width: 98vw; max-width: 1300px; display: flex; justify-content: space-between; align-items: center; 
-            background: #fff; border: 2px solid #000; padding: 10px 20px; margin-bottom: 15px; box-sizing: border-box;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            width: 98vw; max-width: 1400px; display: flex; justify-content: space-between; align-items: center; 
+            background: #fff; border: 3px solid #0b1f3f; padding: 12px 25px; margin-bottom: 20px; box-sizing: border-box;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
         }
         .status-box { font-family: "Courier New", Courier, monospace; }
-        #status { color: #d32f2f; font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0 0 6px 0;}
-        .meta-data { font-size: 12px; color: #000; font-weight: bold; }
+        #status { color: #d32f2f; font-size: 16px; font-weight: 900; text-transform: uppercase; margin: 0 0 4px 0; letter-spacing: 1px;}
+        .meta-data { font-size: 14px; color: #0b1f3f; font-weight: bold; }
 
+        /* The Engineering Board */
         .board-container {
-            width: 98vw; max-width: 1300px; border: 3px solid #000; background-color: #fff; position: relative;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.1); box-sizing: border-box; margin-bottom: 20px;
+            width: 98vw; max-width: 1400px; border: 4px solid #0b1f3f; background-color: #fff; position: relative;
+            box-shadow: 8px 8px 0px rgba(11,31,63,0.2); box-sizing: border-box; margin-bottom: 20px;
         }
         .board-title { 
-            background-color: #000; color: #fff; padding: 8px 15px; font-size: 13px; 
-            font-weight: bold; letter-spacing: 1.5px; border-bottom: 2px solid #000; display: flex; justify-content: space-between;
+            background-color: #0b1f3f; color: #b5985a; padding: 10px 20px; font-size: 14px; 
+            font-weight: bold; letter-spacing: 3px; border-bottom: 3px solid #000; display: flex; justify-content: space-between; font-family: "Courier New", monospace; text-transform: uppercase;
         }
         
         .board { 
-            position: relative; width: 100%; height: 68vh; max-height: 800px; 
-            background-color: #ffffff; overflow: hidden; 
-            background-image: linear-gradient(#f0f0f0 1px, transparent 1px), linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
-            background-size: 25px 25px;
+            position: relative; width: 100%; height: 72vh; max-height: 850px; 
+            background-color: #f4f6f8; overflow: hidden; 
+            background-image: 
+                linear-gradient(#e0e0e0 1px, transparent 1px), 
+                linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+            background-size: 30px 30px;
         }
         
+        /* Board Watermark */
+        .board-watermark {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 100px; font-weight: 900; color: rgba(11,31,63,0.03); font-family: Arial, sans-serif;
+            letter-spacing: 20px; pointer-events: none; white-space: nowrap; user-select: none; text-align: center; line-height: 1;
+        }
+
         .player-frame {
             position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px;
-            background-color: rgba(255, 255, 255, 0.95); border: 2px solid #000; padding: 10px; 
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.95); border: 3px solid #0b1f3f; padding: 12px; 
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1); z-index: 10;
         }
         .frame-header {
-            width: 100%; background: #000; color: #fff; font-family: "Courier New", Courier, monospace;
-            font-size: 11px; font-weight: bold; padding: 4px 0; text-align: center;
+            width: 100%; background: #eceff1; color: #0b1f3f; font-family: "Courier New", Courier, monospace;
+            font-size: 12px; font-weight: 900; padding: 6px 0; text-align: center; border-bottom: 2px solid #0b1f3f;
             margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1.5px;
         }
-        .zhuang-badge { color: #ffeb3b; margin-left: 5px; font-weight: 900;}
+        .zhuang-badge { color: #d32f2f; margin-left: 5px; font-weight: 900; background: #ffebee; padding: 2px 6px; border: 1px solid #d32f2f;}
         
         .hand { display: flex; gap: 2px; justify-content: center; flex-wrap: nowrap; }
-        .exposed { display: flex; gap: 6px; justify-content: center; flex-wrap: nowrap; margin-bottom: 4px;}
+        .exposed { display: flex; gap: 8px; justify-content: center; flex-wrap: nowrap; margin-bottom: 6px;}
         
-        #player-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); width: 850px; padding-bottom: 15px;}
+        #player-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); width: 880px; padding-bottom: 15px; border-color: #0b1f3f;}
+        #player-bottom .frame-header { background: #0b1f3f; color: #fff;}
         #player-right { right: -150px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 440px;}
         #player-top { top: 15px; left: 50%; transform: translateX(-50%); width: 440px;}
         #player-left { left: -150px; top: 50%; transform: translateY(-50%) rotate(90deg); width: 440px;}
 
         .discard-pile { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 480px; height: 280px; background-color: #fff; border: 2px dashed #000; 
+            width: 580px; height: 320px; background-color: rgba(255,255,255,0.9); border: 3px dashed #0b1f3f; 
             display: flex; flex-wrap: wrap; align-content: flex-start; justify-content: center; padding: 15px; overflow: hidden; 
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.05); z-index: 5;
         }
         .discard-title {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 32px; font-weight: bold; color: rgba(0,0,0,0.03); pointer-events: none;
-            text-align: center; font-family: "Arial Black", sans-serif; white-space: nowrap; letter-spacing: 2px;
+            font-size: 40px; font-weight: 900; color: rgba(11,31,63,0.04); pointer-events: none;
+            text-align: center; font-family: "Arial Black", sans-serif; white-space: nowrap; letter-spacing: 4px; line-height: 1.1;
         }
 
         .tile { 
-            background-color: #ffffff; color: #000; border: 1px solid #000; 
-            width: 42px; height: 58px; display: flex; justify-content: center; align-items: center; 
-            font-size: 48px; cursor: default; user-select: none; overflow: hidden; line-height: 1;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.2); font-family: Arial, sans-serif; flex-shrink: 0; position: relative;
+            background-color: #fdfdfd; color: #000; border: 1px solid #111; 
+            width: 44px; height: 62px; display: flex; justify-content: center; align-items: center; 
+            font-size: 50px; cursor: default; user-select: none; overflow: hidden; line-height: 1;
+            box-shadow: 2px 3px 5px rgba(0,0,0,0.3); font-family: Arial, sans-serif; flex-shrink: 0; position: relative;
+            background-image: linear-gradient(to bottom right, #ffffff, #e0e0e0); border-radius: 2px;
         }
         
-        #player-bottom .hand .tile { cursor: pointer; transition: transform 0.1s; border-bottom: 4px solid #000;}
-        #player-bottom .hand .tile:hover { transform: translateY(-8px); border-bottom-color: #1976d2; }
-        #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 15px; border-color: #1976d2; border-bottom-width: 4px;}
-        .tile.selected-swap { transform: translateY(-15px) !important; border-color: #ff9800 !important; box-shadow: 0 0 10px #ff9800 !important; border-bottom-width: 4px;}
+        #player-bottom .hand .tile { cursor: pointer; transition: transform 0.1s; border-bottom: 5px solid #2e7d32;}
+        #player-bottom .hand .tile:hover { transform: translateY(-10px); border-bottom-color: #0b1f3f; box-shadow: 0 12px 20px rgba(0,0,0,0.3);}
+        #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 20px; border-color: #d32f2f; border-bottom-width: 5px;}
+        .tile.selected-swap { transform: translateY(-15px) !important; border-color: #f57f17 !important; box-shadow: 0 10px 20px rgba(245, 127, 23, 0.4) !important; border-bottom-width: 5px;}
 
-        .facedown { background-color: #e0e0e0; border: 1px solid #666; color: transparent; background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #e0e0e0 25%, #e0e0e0 75%, #ccc 75%, #ccc); background-position: 0 0, 4px 4px; background-size: 8px 8px; }
-        .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 34px; font-family: "SimHei", "Microsoft YaHei", sans-serif; }
-        .tile-red { color: #d32f2f; font-weight: bold;} .tile-green { color: #388e3c; font-weight: bold;} .special-text { font-weight: bold; color: #000; } 
-        .bai-ban { width: 20px; height: 30px; border: 4px solid #1976d2; border-radius: 2px; box-sizing: border-box; }
-        .flower-num { position: absolute; top: -1px; right: -1px; background: #d32f2f; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 4px; font-family: "Courier New", Courier, monospace; border: 1px solid #000; line-height: 1; z-index: 5;}
+        .facedown { background-color: #b0bec5; border: 1px solid #546e7a; color: transparent; background-image: repeating-linear-gradient(45deg, #90a4ae 25%, transparent 25%, transparent 75%, #90a4ae 75%, #90a4ae), repeating-linear-gradient(45deg, #90a4ae 25%, #b0bec5 25%, #b0bec5 75%, #90a4ae 75%, #90a4ae); background-position: 0 0, 4px 4px; background-size: 8px 8px; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
+        .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 36px; font-family: "SimHei", "Microsoft YaHei", sans-serif; }
+        .tile-red { color: #c62828; font-weight: bold;} .tile-green { color: #2e7d32; font-weight: bold;} .special-text { font-weight: bold; color: #111; } 
+        .bai-ban { width: 22px; height: 34px; border: 5px solid #1565c0; border-radius: 3px; box-sizing: border-box; }
+        .flower-num { position: absolute; top: -1px; right: -1px; background: #c62828; color: #fff; font-size: 12px; font-weight: bold; padding: 2px 5px; font-family: "Courier New", Courier, monospace; border: 1px solid #000; line-height: 1; z-index: 5;}
         
-        .meld { display: flex; gap: 2px; background-color: #f5f5f5; padding: 4px; border: 1px solid #aaa; flex-shrink: 0;}
-        .exposed .tile { width: 34px; height: 48px; font-size: 40px; }
-        .exposed .tile.special-text, .exposed .tile.tile-red, .exposed .tile.tile-green { font-size: 26px; }
-        .exposed .bai-ban { width: 16px; height: 24px; border-width: 3px; }
-        .exposed .flower-num { font-size: 9px; padding: 1px 3px; }
+        .meld { display: flex; gap: 2px; background-color: #eceff1; padding: 5px; border: 2px solid #90a4ae; flex-shrink: 0;}
+        .exposed .tile { width: 36px; height: 50px; font-size: 42px; }
+        .exposed .tile.special-text, .exposed .tile.tile-red, .exposed .tile.tile-green { font-size: 28px; }
+        .exposed .bai-ban { width: 18px; height: 26px; border-width: 4px; }
+        .exposed .flower-num { font-size: 10px; padding: 1px 4px; }
         
-        .discard-pile .tile { width: 30px; height: 42px; font-size: 34px; margin: 1px; border-color: #888; z-index: 2;}
-        .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 22px; }
-        .discard-pile .bai-ban { width: 14px; height: 22px; border-width: 2px; }
+        .discard-pile .tile { width: 32px; height: 46px; font-size: 36px; margin: 1px; border-color: #78909c; z-index: 2;}
+        .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 24px; }
+        .discard-pile .bai-ban { width: 16px; height: 24px; border-width: 3px; }
 
-        /* AUDIT LEADERBOARD */
-        #audit-history-container { width: 98vw; max-width: 1300px; background: #fff; border: 3px solid #000; box-shadow: 5px 5px 0px rgba(0,0,0,0.1); margin-bottom: 20px;}
-        #audit-table { width: 100%; border-collapse: collapse; font-family: "Courier New", Courier, monospace; font-size: 11px; }
-        #audit-table th { background: #1a365d; color: #fff; padding: 10px; text-align: left; border: 1px solid #000; text-transform: uppercase; letter-spacing: 1px;}
-        #audit-table td { padding: 10px; border: 1px solid #ccc; color: #111; font-weight: bold;}
-        #audit-table tr:nth-child(even) { background-color: #f9f9f9; }
-
+        /* EXTREME TERMINAL POPUP OVERLAY */
         #action-overlay {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.98); border: 4px solid #d32f2f;
-            padding: 30px 45px; box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            background: rgba(11, 31, 63, 0.98); border: 5px solid #d32f2f;
+            padding: 30px 50px; box-shadow: 0 20px 80px rgba(0,0,0,0.8);
             z-index: 9999; display: none; flex-direction: column; align-items: center;
             max-height: 90vh; overflow-y: auto; width: auto; max-width: 90vw;
+            backdrop-filter: blur(8px);
         }
-        .overlay-title { font-size: 18px; font-weight: 900; color: #d32f2f; margin-bottom: 20px; letter-spacing: 1px; font-family: "Courier New", Courier, monospace; text-align: center;}
-        .overlay-target-tile { margin-bottom: 25px; transform: scale(1.5); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .action-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%;}
-        
-        .terminal-log { background: #0a0a0a; color: #4caf50; font-family: "Courier New", Courier, monospace; padding: 20px; border: 2px solid #333; width: 100%; box-sizing: border-box; margin-bottom: 20px; text-align: left; font-size: 14px; line-height: 1.6; }
+        .overlay-title { font-size: 22px; font-weight: 900; color: #fff; background: #d32f2f; padding: 10px 20px; margin-bottom: 25px; letter-spacing: 3px; font-family: "Courier New", Courier, monospace; text-align: center; width: 100%; box-sizing: border-box;}
+        .overlay-target-tile { margin-bottom: 30px; transform: scale(1.8); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .action-row { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%;}
 
-        button { background-color: #e0e0e0; border: 2px solid #000; color: #000; padding: 12px 20px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.1s; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: "Segoe UI", Arial, sans-serif;}
-        button:hover { background-color: #d0d0d0; box-shadow: 3px 3px 0px #000; transform: translateY(-2px);}
-        .btn-hu { border: 2px solid #d32f2f; color: #d32f2f; background-color: #fff; }
-        .btn-hu:hover { background-color: #d32f2f; color: #fff;}
-        .cancel-btn { border-color: #666 !important; color: #666 !important; background-color: #f9f9f9; width: 100%; margin-top: 15px;}
-        .cancel-btn:hover { background-color: #eee; }
+        .terminal-log {
+            background: #000; color: #0f0; font-family: "Courier New", Courier, monospace;
+            padding: 20px; border: 2px solid #333; width: 100%; box-sizing: border-box;
+            margin-bottom: 20px; text-align: left; font-size: 15px; line-height: 1.6;
+            box-shadow: inset 0 0 20px rgba(0,255,0,0.1); text-transform: uppercase;
+        }
 
-        #mas-footer { width: 95vw; max-width: 1300px; text-align: center; color: #666; font-size: 10px; border-top: 1px solid #ccc; padding-top: 10px; font-family: Arial, sans-serif; margin-bottom: 20px;}
+        button { 
+            background-color: #cfd8dc; border: 3px solid #0b1f3f; color: #0b1f3f; padding: 15px 25px; 
+            font-size: 16px; font-weight: 900; cursor: pointer; transition: 0.2s; letter-spacing: 1px;
+            display: flex; align-items: center; justify-content: center; gap: 10px; font-family: "Segoe UI", Arial, sans-serif;
+            text-transform: uppercase; box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+        }
+        button:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 6px 6px 0px rgba(0,0,0,0.4);}
+        .btn-hu { border-color: #c62828; color: #fff; background-color: #d32f2f; }
+        .btn-hu:hover { background-color: #f44336; }
+        .cancel-btn { border-color: #546e7a !important; color: #fff !important; background-color: #546e7a; width: 100%; margin-top: 20px;}
+        .cancel-btn:hover { background-color: #78909c; }
 
-        @media screen and (max-width: 850px) {
+        /* Full Width Audit History Table */
+        #audit-history-container { width: 98vw; max-width: 1400px; background: #fff; border: 4px solid #0b1f3f; box-shadow: 6px 6px 0px rgba(11,31,63,0.15); margin-bottom: 30px; box-sizing: border-box;}
+        #audit-table { width: 100%; border-collapse: collapse; font-family: "Courier New", Courier, monospace; font-size: 12px; }
+        #audit-table th { background: #0b1f3f; color: #b5985a; padding: 12px; text-align: left; border: 1px solid #000; text-transform: uppercase; letter-spacing: 1.5px;}
+        #audit-table td { padding: 12px; border: 1px solid #ccc; color: #111; font-weight: bold;}
+        #audit-table tr:nth-child(even) { background-color: #f0f4f8; }
+        .win-log-row { animation: flashHighlight 2s ease-out; }
+        @keyframes flashHighlight { 0% { background-color: #c8e6c9; } 100% { background-color: transparent; } }
+
+        #mas-footer { width: 98vw; max-width: 1400px; text-align: center; color: #546e7a; font-size: 11px; border-top: 2px solid #b0bec5; padding-top: 15px; font-family: Arial, sans-serif; font-weight: bold;}
+
+        /* MOBILE OPTIMIZATION */
+        @media screen and (max-width: 1000px) {
             body { padding: 0; }
             #mas-navbar { font-size: 9px; padding: 6px 10px; }
             .nav-links span { margin-right: 10px; }
-            #mas-header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; margin-bottom: 5px; border-top: 5px solid #1a365d;}
-            .header-left h1 { font-size: 18px; }
             
-            #ledger-board { flex-wrap: wrap; padding: 5px; gap: 5px;}
-            .ledger-node { min-width: 45%; font-size: 10px; padding: 4px; flex-grow: 1;}
-            .ledger-title { width: 100%; text-align: center; margin-bottom: 5px;}
+            #mas-header { flex-direction: column; align-items: flex-start; gap: 15px; padding: 15px;}
+            .header-right { text-align: left; border-left: none; padding-left: 0; border-top: 2px solid #ccc; padding-top: 10px; width: 100%;}
+            
+            #ledger-board { flex-direction: column; padding: 0; border: none; box-shadow: none; margin-bottom: 5px;}
+            .ledger-title { width: 100%; box-sizing: border-box; border-right: none; font-size: 14px;}
+            .ledger-nodes-wrapper { flex-wrap: wrap; }
+            .ledger-node { min-width: 50%; font-size: 11px; padding: 8px; border: 1px solid #ccc;}
 
-            #dashboard-controls { flex-direction: column; text-align: center; gap: 5px; padding: 10px; margin-bottom: 10px;}
-            #status { font-size: 13px; line-height: 1.3;}
+            #dashboard-controls { flex-direction: column; text-align: center; gap: 8px; padding: 12px; margin-bottom: 10px;}
+            #status { font-size: 14px; line-height: 1.3;}
             
-            .board-container { width: 100vw; border: none; box-shadow: none; margin-bottom: 5px;}
-            .board { display: flex; flex-direction: column; height: auto; min-height: 75vh; padding: 5px; justify-content: flex-start;}
+            .board-container { width: 100vw; border-left: none; border-right: none; box-shadow: none; margin-bottom: 5px;}
+            .board { height: auto; min-height: 75vh; padding: 5px;}
             
-            .player-frame { position: relative; width: 100% !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; transform: none !important; box-sizing: border-box; padding: 5px; margin-bottom: 5px;}
+            .player-frame { position: relative; width: 100% !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; transform: none !important; box-sizing: border-box; padding: 5px; margin-bottom: 5px; border-width: 2px;}
             #player-top, #player-left, #player-right { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 4px; padding: 4px; }
-            .frame-header { width: 100%; margin-bottom: 2px; font-size: 9px; padding: 2px; }
+            .frame-header { width: 100%; margin-bottom: 2px; font-size: 10px; padding: 4px; }
             
-            #player-top .facedown, #player-left .facedown, #player-right .facedown { width: 14px; height: 20px; border-width: 1px;}
-            #player-top .tile, #player-left .tile, #player-right .tile { width: 16px; height: 22px; font-size: 16px; }
-            #player-top .bai-ban, #player-left .bai-ban, #player-right .bai-ban { width: 8px; height: 12px; border-width: 2px; }
-            .flower-num { font-size: 7px; padding: 1px 2px; top: -2px; right: -2px;}
+            #player-top .facedown, #player-left .facedown, #player-right .facedown { width: 16px; height: 24px; border-width: 1px;}
+            #player-top .tile, #player-left .tile, #player-right .tile { width: 18px; height: 26px; font-size: 18px; }
+            #player-top .bai-ban, #player-left .bai-ban, #player-right .bai-ban { width: 10px; height: 14px; border-width: 2px; }
+            .flower-num { font-size: 8px; padding: 1px 3px; top: -2px; right: -2px;}
             
             .discard-pile { position: relative; left: auto !important; top: auto !important; transform: none !important; width: 100%; flex-grow: 1; min-height: 180px; margin: 5px 0; box-sizing: border-box; padding: 5px; justify-content: center;}
-            .discard-pile .tile { width: 6vw; height: 8.5vw; font-size: 6vw; margin: 1px; }
-            .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 4.5vw; }
-            .discard-pile .bai-ban { width: 2.5vw; height: 4vw; border-width: 1px; }
+            .discard-pile .tile { width: 6.5vw; height: 9vw; font-size: 6vw; margin: 1px; }
+            .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 5vw; }
+            .discard-pile .bai-ban { width: 3vw; height: 4.5vw; border-width: 1px; }
+            .discard-title { font-size: 20px; white-space: normal;}
             
-            #player-bottom { padding: 5px 2px 10px 2px; border: 2px solid #1976d2;}
+            #player-bottom { padding: 5px 2px 10px 2px; border: 2px solid #1a365d;}
             .hand { gap: 1px; }
-            .tile { width: 6.3vw; height: 9vw; font-size: 6vw; border-width: 1px; border-radius: 2px; }
-            .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 4.8vw; }
+            .tile { width: 6.5vw; height: 9.5vw; font-size: 6vw; border-width: 1px; border-radius: 2px; box-shadow: 1px 1px 2px rgba(0,0,0,0.3);}
+            .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 5vw; }
             .bai-ban { width: 3vw; height: 5vw; border-width: 2px; }
-            #player-bottom .hand .tile { border-bottom-width: 2px; }
+            #player-bottom .hand .tile { border-bottom-width: 3px; }
             #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 2vw;}
             
-            #action-overlay { width: 95vw; padding: 15px; box-sizing: border-box; border-width: 2px;}
+            #action-overlay { width: 95vw; padding: 20px; box-sizing: border-box; border-width: 3px;}
             #action-overlay .overlay-target-tile .tile { width: 14vw; height: 20vw; font-size: 14vw; } 
-            .action-row { flex-direction: column; width: 100%; gap: 6px;}
-            button { width: 100%; padding: 16px; font-size: 13px; margin: 0; justify-content: center;}
-            .cancel-btn { margin-top: 5px; }
-            .terminal-log { font-size: 11px; padding: 10px; }
-            
+            .action-row { flex-direction: column; width: 100%; gap: 8px;}
+            button { width: 100%; padding: 16px; font-size: 14px; margin: 0; justify-content: center; box-shadow: 2px 2px 0px rgba(0,0,0,0.3);}
+            .cancel-btn { margin-top: 10px; }
+            .terminal-log { font-size: 12px; padding: 15px; }
+
             #audit-history-container { width: 100vw; border-left: none; border-right: none;}
+            #audit-table { font-size: 10px; }
+            #audit-table th, #audit-table td { padding: 6px; }
         }
     </style>
 </head>
@@ -220,13 +274,13 @@
 
     <div id="mas-navbar">
         <div class="nav-links">
-            <span>&#9776; SYSTEM MENU</span>
+            <span><span class="live-indicator"></span>LIVE UPLINK</span>
+            <span>SYSTEM MENU</span>
             <span>COMPLIANCE MODULES</span>
-            <span>RISK ASSESSMENT</span>
             <span>AUDIT TRAIL</span>
         </div>
         <div class="nav-sysinfo">
-            SESSION_ID: 8942-X | ENCRYPTION: AES-256 | USER: LEAD_AUDITOR_01
+            SESSION: 8942-X | ENCRYPTION: AES-256 | USER: LEAD_AUDITOR_01
         </div>
     </div>
 
@@ -235,14 +289,18 @@
     </div>
 
     <div id="mas-header">
-        <div class="header-left">
-            <h1>MONETARY AUTHORITY OF SINGAPORE</h1>
-            <h3>Financial Supervisory Division - Asset Ledger Audit (FARL-26)</h3>
+        <div class="header-content">
+            <div class="mas-brand">
+                <div class="mas-logo-box">
+                    <div class="mas-logo-circle">MAS</div>
+                </div>
+                <div class="mas-brand-text">Monetary Authority<br>of Singapore</div>
+            </div>
         </div>
         <div class="header-right">
             DOC REF: MAS-FSD-2026-88<br>
             CLASSIFICATION: STRICTLY CONFIDENTIAL<br>
-            TIMESTAMP: LIVE SECURE SYNC
+            TIMESTAMP: <span id="clock-timer">LIVE SECURE SYNC</span>
         </div>
     </div>
 
@@ -252,10 +310,12 @@
 
     <div id="ledger-board">
         <div class="ledger-title" id="round-indicator">ROUND: EAST</div>
-        <div class="ledger-node" id="score-0">EAST (YOU)<br>Bal: 300</div>
-        <div class="ledger-node" id="score-1">SOUTH (N02)<br>Bal: 300</div>
-        <div class="ledger-node" id="score-2">WEST (N03)<br>Bal: 300</div>
-        <div class="ledger-node" id="score-3">NORTH (N04)<br>Bal: 300</div>
+        <div class="ledger-nodes-wrapper">
+            <div class="ledger-node" id="score-0"><span class="ledger-name">EAST (YOU)</span><span class="ledger-bal">300</span></div>
+            <div class="ledger-node" id="score-1"><span class="ledger-name">SOUTH (N02)</span><span class="ledger-bal">300</span></div>
+            <div class="ledger-node" id="score-2"><span class="ledger-name">WEST (N03)</span><span class="ledger-bal">300</span></div>
+            <div class="ledger-node" id="score-3"><span class="ledger-name">NORTH (N04)</span><span class="ledger-bal">300</span></div>
+        </div>
     </div>
 
     <div id="dashboard-controls">
@@ -268,9 +328,10 @@
     <div class="board-container">
         <div class="board-title">
             <span>FIGURE 1: LIVE ASSET RECONCILIATION MATRIX</span>
-            <span style="color:#4caf50; font-family: monospace;">UPLINK SECURE</span>
+            <span style="color:#4caf50;">[ DATA STREAM ACTIVE ]</span>
         </div>
         <div class="board">
+            <div class="board-watermark">CLASSIFIED<br>MAS-FSD</div>
             
             <div id="player-top" class="player-frame">
                 <div class="frame-header" id="label-2">NODE 03: WEST ENTITY - UPLINK ACTIVE</div>
@@ -349,7 +410,7 @@
                 natHand.forEach(t => counts[t] = (counts[t] || 0) + 1);
                 
                 let reqDaSan = Math.max(0, 3-(counts['H5']||0)) + Math.max(0, 3-(counts['H6']||0)) + Math.max(0, 3-(counts['H7']||0));
-                if (reqDaSan <= feiCount) return true; // Da San Yuan is an instant pass
+                if (reqDaSan <= feiCount) return true;
 
                 if (hand14.length === 14) {
                     if (this.is13Orphans(natHand, feiCount)) return true;
@@ -365,7 +426,6 @@
                 let waits = [];
                 for (let t of uniqueTiles) {
                     let testHand = [...hand13, t];
-                    // Mentally pass exposed sets by simulating a 14 tile check
                     let fake14 = [...testHand];
                     exposedRaw.forEach(m => {
                         let clean = m.replace(/\*/g, '');
@@ -381,7 +441,6 @@
             evaluate(hand, exposedRaw, isZiMo, seatWind, roundWind, winningTile = null, gameFlags = {}) {
                 let result = this._evaluateCore(hand, exposedRaw, isZiMo, seatWind, roundWind, winningTile, gameFlags);
                 
-                // FIRST TURN RULES (Tian/Di/Ren Hu Override)
                 if (result.isHu) {
                     let override = null;
                     if (gameFlags.isTianHu) override = "Tian Hu (Heavenly Audit)";
@@ -437,12 +496,10 @@
                     }
                 });
 
-                // GRAND MASTER: 18 Arhats
                 if (kongCount === 4) return { isHu: true, breakdown: "> Shi Ba Luo Han (18 Arhats) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
 
                 let allTiles = [...natHand, ...natExposedSets.flat().filter(t => t !== this.FEI)];
                 
-                // GRAND SLAM CHECKS
                 let totalCounts = {};
                 allTiles.forEach(t => totalCounts[t] = (totalCounts[t] || 0) + 1);
                 
@@ -452,7 +509,6 @@
                 if (hand.length === 14 && this.is13Orphans(natHand, feiCount)) return { isHu: true, breakdown: "> Shi San Yao (13 Orphans) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
                 if (hand.length === 14 && this.isNineGates(natHand, feiCount)) return { isHu: true, breakdown: "> Jiu Bao Lian Deng (9 Gates) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
 
-                // KALONG & TING FEI DETECTION
                 let isTingFei = false;
                 let isSingleWait = false;
 
@@ -466,10 +522,8 @@
                     if (waits.length === 1) isSingleWait = true;
                 }
 
-                // STRICT TING FEI OVERRIDE: Cannot Gun Hu.
                 if (isTingFei && !isZiMo) return { isHu: false }; 
 
-                // PERMUTATION GENERATOR
                 let standardForms = this.isStandardHu(natHand, feiCount); 
                 let is7Pairs = (hand.length === 14 && this.isSevenPairs(natHand, feiCount));
                 
@@ -483,7 +537,6 @@
 
                 if (validStructures.length === 0) return { isHu: false };
 
-                // GREEDY EVALUATOR
                 let bestResult = { isHu: false, tai: -1, breakdown: "" };
 
                 for (let struct of validStructures) {
@@ -498,7 +551,6 @@
                     let parsedSets = form.valid ? [...form.bestSets, ...natExposedSets] : natExposedSets;
                     let parsedPair = form.valid ? form.pair : [];
 
-                    // Small Dragons & Winds
                     let dragonCounts = {'H5':0, 'H6':0, 'H7':0};
                     let windCounts = {'H1':0, 'H2':0, 'H3':0, 'H4':0};
                     
@@ -524,7 +576,7 @@
                     else if (wVals.filter(v => v >= 1).length === 3 && wVals.filter(v => v === 0.5).length === 1) hasXiaoSiXi = true;
 
                     if (hasXiaoSanYuan) scoring.push({name: "Xiao San Yuan (Small 3 Dragons)", tai: 3});
-                    if (hasDaSiXi && form.valid) scoring.push({name: "Da Si Xi (Big 4 Winds)", tai: 5}); // Form.valid enforces 4 melds + pair
+                    if (hasDaSiXi && form.valid) scoring.push({name: "Da Si Xi (Big 4 Winds)", tai: 5}); 
                     else if (hasXiaoSiXi && form.valid) scoring.push({name: "Xiao Si Xi (Small 4 Winds)", tai: 4});
 
                     if (!hasXiaoSanYuan && form.valid) {
@@ -539,7 +591,6 @@
                         if (windCounts[seatW] >= 1) scoring.push({name: "Asset: Seat Wind Pong", tai: 1});
                     }
 
-                    // YAO JIU (Terminals/Honors)
                     let isYaoJiu = allTiles.every(t => t && (t.includes('1') || t.includes('9') || t.includes('H')));
                     if (isYaoJiu) scoring.push({name: "Hun Yao Jiu (Terminals/Honors)", tai: 2});
 
@@ -555,20 +606,18 @@
                     let totalTriplets = exposedTriplets + (form.valid ? form.triplets : 0);
                     let totalChows = exposedChows + (form.valid ? form.chows : 0);
 
-                    // Si An Ke & Pong Pong
                     if (form.valid && totalTriplets === 4 && !hasExposedMelds) {
                         return { isHu: true, breakdown: "> Si An Ke (4 Concealed Triplets) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
                     } else if (form.valid && totalChows === 0 && !is7Pairs) {
                         scoring.push({name: "Pong Pong Hu (All Triplets)", tai: 2});
                     }
 
-                    // Ping Hu (Disabled if Single Wait / Kalong)
                     if (form.valid && totalTriplets === 0 && !is7Pairs) {
                         if (!isSingleWait) {
                             if (hasBonus || hasHonors || exposedTriplets > 0) {
                                 scoring.push({name: "Chou Ping Hu (Dirty Sequence)", tai: 1}); 
                             } else {
-                                scoring.push({name: "Ping Hu (Pure Sequence)", tai: isZiMo ? 5 : 4}); 
+                                scoring.push({name: "Ping Hu (Pure Sequence)", tai: 4}); 
                             }
                         }
                     }
@@ -735,7 +784,6 @@
         let swapCount = 0;
         let pendingHuResult = null; 
         
-        // Trackers for Turn 1 overrides
         let totalDiscardsThisRound = 0;
         let discardsByPlayer = [0, 0, 0, 0];
         let isReplacementDraw = false;
@@ -750,7 +798,7 @@
             for(let i=0; i<4; i++) {
                 let el = document.getElementById(`score-${i}`);
                 let title = i === 0 ? "EAST (YOU)" : (i===1 ? "SOUTH (N02)" : (i===2 ? "WEST (N03)" : "NORTH (N04)"));
-                el.innerHTML = `${title}<br>Bal: ${chips[i]}`;
+                el.innerHTML = `<span class="ledger-name">${title}</span><span class="ledger-bal ${chips[i]<0?'negative':''}">${chips[i]}</span>`;
                 el.className = 'ledger-node';
                 if (i === dealer) el.classList.add('active-dealer');
                 
@@ -764,7 +812,7 @@
         function updateAuditLogUI() {
             let tbody = document.getElementById('audit-tbody');
             tbody.innerHTML = auditLog.map(log => `
-                <tr>
+                <tr class="win-log-row">
                     <td>${log.round}</td>
                     <td>${log.winner}</td>
                     <td>${log.source}</td>
@@ -915,7 +963,7 @@
         }
 
         function triggerWin(winnerIndex, shooterIndex = null) {
-            clearTimeout(turnTimer); 
+            clearTimeout(turnTimer); // INFINITE TIME TO READ TAI BREAKDOWN
             hideOverlay();
             if (!pendingHuResult) return;
             let isZiMo = (shooterIndex === null);
@@ -933,18 +981,19 @@
                 chips[winnerIndex] += payout;
             }
 
-            let winnerName = winnerIndex === 0 ? "NODE 01 (YOU)" : `NODE 0${winnerIndex+1}`;
-            let sourceName = isZiMo ? "INTERNAL (SELF-DRAW)" : (shooterIndex === 0 ? "NODE 01 (YOU)" : `NODE 0${shooterIndex+1}`);
-            let summaryLine = pendingHuResult.breakdown.split('\n')[0].replace('> ', '');
+            let winnerName = winnerIndex === 0 ? "NODE 01" : `NODE 0${winnerIndex+1}`;
+            let sourceName = isZiMo ? "INTERNAL (SELF-DRAW)" : (shooterIndex === 0 ? "NODE 01" : `NODE 0${shooterIndex+1}`);
+            let summaryLines = pendingHuResult.breakdown.split('\n').filter(l=>l.includes('> '));
+            let methodStr = summaryLines.length > 0 ? summaryLines[0].replace('> ', '') : "Reconciliation";
             
             auditLog.unshift({
                 round: getWindName(roundWind),
                 winner: winnerName,
                 source: sourceName,
                 tai: pendingHuResult.tai,
-                method: summaryLine
+                method: methodStr
             });
-            if (auditLog.length > 8) auditLog.pop();
+            if (auditLog.length > 6) auditLog.pop();
             updateAuditLogUI();
 
             if (winnerIndex !== dealer) {
@@ -961,7 +1010,7 @@
                 > NET TRANSFER: ${payout} UNITS
             </div>`;
 
-            document.getElementById('status').innerText = `ALERT: Node 0${winnerIndex+1} Has Reconciled the Ledger!`;
+            document.getElementById('status').innerText = `ALERT: NODE 0${winnerIndex+1} HAS RECONCILED THE LEDGER!`;
             showOverlay(`${logHtml}<button class="btn-hu" onclick="initRound()">ACKNOWLEDGE & COMMENCE NEXT AUDIT CYCLE</button>`, null, "AUDIT RESOLUTION REPORT");
         }
 
@@ -976,7 +1025,7 @@
                 tai: "-",
                 method: "DRAW (LEDGER DEPLETED)"
             });
-            if (auditLog.length > 8) auditLog.pop();
+            if (auditLog.length > 6) auditLog.pop();
             updateAuditLogUI();
 
             dealer = (dealer + 1) % 4;
@@ -1053,7 +1102,7 @@
         function startHumanTurn() {
             hideOverlay();
             isHumanTurn = true;
-            document.getElementById('status').innerText = "AUDIT REQUIRED: Awaiting Disposal or Action.";
+            document.getElementById('status').innerText = "AUDIT REQUIRED: AWAITING DISPOSAL OR ACTION.";
             
             let winningTile = hands[0][hands[0].length - 1];
             let flags = {
@@ -1076,7 +1125,7 @@
             if (huResult.isHu && huResult.tai >= 1) {
                 pendingHuResult = huResult;
                 overlayHtml += `<button class="btn-hu" onclick="triggerWin(0, null)">CERTIFY LEDGER (HU)</button>`;
-                document.getElementById('status').innerText = "ALERT: Fully Reconciled Ledger Detected (Zi Mo)!";
+                document.getElementById('status').innerText = "ALERT: FULLY RECONCILED LEDGER DETECTED (ZI MO)!";
             }
             if (possibleKongs.length > 0) {
                 let k = possibleKongs[0];
@@ -1169,7 +1218,7 @@
 
         function doAiTurn() {
             if (deck.length === 0) { triggerDraw(); return; }
-            document.getElementById('status').innerText = `PROCESSING: Node 0${turn+1} evaluating inventory...`;
+            document.getElementById('status').innerText = `PROCESSING: NODE 0${turn+1} EVALUATING INVENTORY...`;
             
             let drawn = drawTile(turn);
             if (!drawn) { triggerDraw(); return; }
@@ -1248,6 +1297,7 @@
 
                 let huResult = evaluator.evaluate(tempHand, exposed[0], false, getSeatWind(0), roundWind, discardedTile, flags); 
                 
+                // DISCARD HU RULE: Must be >= 2 Tai.
                 if (huResult.isHu && huResult.tai >= 2) {
                     pendingHuResult = huResult;
                     overlayHtml += `<button class="btn-hu" onclick="triggerWin(0, ${discardingPlayer})">CERTIFY LEDGER (HU)</button>`;
@@ -1284,7 +1334,7 @@
 
                 if (canClaim) {
                     overlayHtml += `</div><button class="cancel-btn" onclick="cancelSelection()">DECLINE INTERVENTION</button>`;
-                    document.getElementById('status').innerText = "ACTION WINDOW: 8 Seconds Remaining to Intercept Asset.";
+                    document.getElementById('status').innerText = "ACTION WINDOW: 8 SECONDS REMAINING TO INTERCEPT ASSET.";
                     showOverlay(overlayHtml, discardedTile, "ASSET INTERCEPT: ACTION REQUIRED");
                     turnTimer = setTimeout(() => cancelSelection(), 8000); 
                     return;
@@ -1300,7 +1350,7 @@
         }
 
         function executeAiClaim(aiIndex, type, discardedTile, usedTiles) {
-            document.getElementById('status').innerText = `LOG: Node 0${aiIndex+1} Intercepted via ${type.toUpperCase()}.`;
+            document.getElementById('status').innerText = `LOG: NODE 0${aiIndex+1} INTERCEPTED VIA ${type.toUpperCase()}.`;
             usedTiles.forEach(t => hands[aiIndex].splice(hands[aiIndex].indexOf(t), 1));
             let dp = document.getElementById('discard'); if(dp.lastChild) dp.removeChild(dp.lastChild);
             
@@ -1316,10 +1366,10 @@
             renderAll();
             turn = aiIndex;
             setTimeout(() => {
-                let discardIdx = getAiDiscard(turn);
-                const discarded = hands[turn].splice(discardIdx, 1)[0];
-                discardsByPlayer[turn]++;
-                totalDiscardsThisRound++;
+                let validDiscards = hands[turn].map((tile, idx) => ({ tile, idx })).filter(item => item.tile !== FEI);
+                if (validDiscards.length === 0) validDiscards = [{ idx: 0 }];
+                const randomChoice = Math.floor(Math.random() * validDiscards.length);
+                const discarded = hands[turn].splice(validDiscards[randomChoice].idx, 1)[0];
                 
                 let tempDiv = document.createElement('div');
                 tempDiv.innerHTML = getTileHTML(discarded, false, true);
@@ -1341,7 +1391,7 @@
                 renderAll();
                 turn = 0; 
                 isHumanTurn = true;
-                document.getElementById('status').innerText = `LOG: PONG Processed. Awaiting Disposal.`;
+                document.getElementById('status').innerText = `LOG: PONG PROCESSED. AWAITING DISPOSAL.`;
             } else if (type === 'kong') {
                 for(let k=0; k<3; k++) hands[0].splice(hands[0].indexOf(tile), 1);
                 exposed[0].push(tile+tile+tile+tile);
@@ -1370,7 +1420,7 @@
             renderAll();
             turn = 0; 
             isHumanTurn = true;
-            document.getElementById('status').innerText = `LOG: SEQUENCE AUTHORIZED. Awaiting Disposal.`;
+            document.getElementById('status').innerText = `LOG: SEQUENCE AUTHORIZED. AWAITING DISPOSAL.`;
         }
 
         function finishTurn(currentPlayer) {
