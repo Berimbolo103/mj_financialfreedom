@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>MAS Secure Portal - Asset Reconciliation Ledger</title>
+    <title>MAS Secure Portal - Financial Asset Reconciliation (FARL-26)</title>
     <style>
-        /* MAS Corporate Document Theme - BASE DESKTOP */
+        /* MAS Corporate Document Theme */
         body { 
-            background-color: #eef1f5; 
-            color: #111; 
-            font-family: "Segoe UI", Arial, sans-serif; 
+            background-color: #e3e8ef; color: #111; 
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 0 0 20px 0; 
-            font-size: 12px;
-            touch-action: manipulation; 
+            margin: 0; padding: 0 0 20px 0; font-size: 12px; touch-action: manipulation; 
+            overflow-x: hidden;
         }
         
         #mas-navbar {
-            width: 100%; background-color: #1a365d; color: #fff; display: flex; justify-content: space-between;
-            padding: 8px 20px; font-size: 11px; font-weight: bold; letter-spacing: 1px; box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); margin-bottom: 10px;
+            width: 100%; background-color: #0b2240; color: #fff; display: flex; justify-content: space-between;
+            padding: 8px 25px; font-size: 11px; font-weight: bold; letter-spacing: 1px; box-sizing: border-box;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3); margin-bottom: 10px; border-bottom: 2px solid #ef5350;
         }
-        .nav-links span { margin-right: 20px; cursor: pointer; opacity: 0.8; }
-        .nav-links span:hover { opacity: 1; }
-        .nav-sysinfo { font-family: "Courier New", Courier, monospace; color: #64b5f6; }
+        .nav-links span { margin-right: 25px; cursor: pointer; opacity: 0.7; transition: 0.2s;}
+        .nav-links span:hover { opacity: 1; color: #90caf9;}
+        .nav-sysinfo { font-family: "Courier New", Courier, monospace; color: #81c784; }
 
         #security-banner {
             width: 100%; background-color: #ffebee; color: #b71c1c; text-align: center; padding: 6px;
@@ -32,31 +30,30 @@
         }
 
         #mas-header {
-            width: 95vw; max-width: 1250px; border-bottom: 4px solid #000; margin-bottom: 10px; padding-bottom: 8px;
-            display: flex; justify-content: space-between; align-items: flex-end; background: #fff; padding: 15px; box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            width: 98vw; max-width: 1300px; border-bottom: 5px solid #000; margin-bottom: 10px; padding-bottom: 8px;
+            display: flex; justify-content: space-between; align-items: flex-end; background: #fff; padding: 15px 25px; box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08); border-top: 10px solid #1a365d;
         }
-        .header-left h1 { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #000;}
+        .header-left h1 { margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; color: #000;}
         .header-left h3 { margin: 4px 0 0 0; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 1px;}
-        .header-right { text-align: right; font-size: 10px; color: #444; font-family: "Courier New", Courier, monospace; font-weight: bold; line-height: 1.4;}
-        
+        .header-right { text-align: right; font-size: 10px; color: #444; font-family: "Courier New", Courier, monospace; font-weight: bold; line-height: 1.5;}
+
         #disclaimer {
-            width: 95vw; max-width: 1250px; margin-bottom: 10px; text-align: justify; color: #333; font-size: 11px; line-height: 1.5;
-            border: 1px solid #000; border-left: 6px solid #d32f2f; padding: 12px; background-color: #fff; box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            width: 98vw; max-width: 1300px; margin-bottom: 10px; text-align: justify; color: #333; font-size: 11px; line-height: 1.5;
+            border: 1px solid #ccc; border-left: 6px solid #d32f2f; padding: 12px 20px; background-color: #fff; box-sizing: border-box;
         }
 
         #ledger-board {
-            width: 95vw; max-width: 1250px; display: flex; justify-content: space-between; align-items: center; 
+            width: 98vw; max-width: 1300px; display: flex; justify-content: space-between; align-items: center; 
             background: #fff; border: 2px solid #000; padding: 10px 15px; margin-bottom: 10px; box-sizing: border-box;
-            font-family: "Courier New", Courier, monospace; font-weight: bold;
+            font-family: "Courier New", Courier, monospace; font-weight: bold; box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
         }
-        .ledger-node { padding: 5px 10px; border: 1px solid #ccc; background: #fafafa; min-width: 120px; text-align: center;}
-        .ledger-node.active-dealer { background: #e3f2fd; border-color: #1976d2; color: #1976d2;}
-        .ledger-title { font-size: 16px; font-weight: 900; color: #d32f2f; }
+        .ledger-node { padding: 6px 12px; border: 1px solid #aaa; background: #f5f5f5; min-width: 120px; text-align: center; text-transform: uppercase;}
+        .ledger-node.active-dealer { background: #ffebee; border-color: #d32f2f; color: #d32f2f; box-shadow: inset 0 0 5px rgba(211, 47, 47, 0.2);}
+        .ledger-title { font-size: 16px; font-weight: 900; color: #1a365d; background: #e3f2fd; padding: 5px 15px; border: 1px solid #1a365d;}
 
         #dashboard-controls {
-            width: 95vw; max-width: 1250px; display: flex; justify-content: space-between; align-items: center; 
+            width: 98vw; max-width: 1300px; display: flex; justify-content: space-between; align-items: center; 
             background: #fff; border: 2px solid #000; padding: 10px 20px; margin-bottom: 15px; box-sizing: border-box;
             box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
         }
@@ -65,43 +62,44 @@
         .meta-data { font-size: 12px; color: #000; font-weight: bold; }
 
         .board-container {
-            width: 95vw; max-width: 1250px; border: 3px solid #000; background-color: #fff; position: relative;
+            width: 98vw; max-width: 1300px; border: 3px solid #000; background-color: #fff; position: relative;
             box-shadow: 5px 5px 0px rgba(0,0,0,0.1); box-sizing: border-box; margin-bottom: 20px;
         }
         .board-title { 
             background-color: #000; color: #fff; padding: 8px 15px; font-size: 13px; 
-            font-weight: bold; letter-spacing: 1.5px; border-bottom: 2px solid #000;
+            font-weight: bold; letter-spacing: 1.5px; border-bottom: 2px solid #000; display: flex; justify-content: space-between;
         }
         
         .board { 
-            position: relative; width: 100%; height: 70vh; max-height: 800px; 
+            position: relative; width: 100%; height: 68vh; max-height: 800px; 
             background-color: #ffffff; overflow: hidden; 
-            background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: linear-gradient(#f0f0f0 1px, transparent 1px), linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
+            background-size: 25px 25px;
         }
         
         .player-frame {
             position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px;
             background-color: rgba(255, 255, 255, 0.95); border: 2px solid #000; padding: 10px; 
-            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
         }
         .frame-header {
             width: 100%; background: #000; color: #fff; font-family: "Courier New", Courier, monospace;
             font-size: 11px; font-weight: bold; padding: 4px 0; text-align: center;
-            margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1.5px;
         }
+        .zhuang-badge { color: #ffeb3b; margin-left: 5px; font-weight: 900;}
         
         .hand { display: flex; gap: 2px; justify-content: center; flex-wrap: nowrap; }
         .exposed { display: flex; gap: 6px; justify-content: center; flex-wrap: nowrap; margin-bottom: 4px;}
         
         #player-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); width: 850px; padding-bottom: 15px;}
-        #player-right { right: -150px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 420px;}
-        #player-top { top: 15px; left: 50%; transform: translateX(-50%); width: 420px;}
-        #player-left { left: -150px; top: 50%; transform: translateY(-50%) rotate(90deg); width: 420px;}
+        #player-right { right: -150px; top: 50%; transform: translateY(-50%) rotate(-90deg); width: 440px;}
+        #player-top { top: 15px; left: 50%; transform: translateX(-50%); width: 440px;}
+        #player-left { left: -150px; top: 50%; transform: translateY(-50%) rotate(90deg); width: 440px;}
 
         .discard-pile { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 500px; height: 280px; background-color: #fff; border: 2px dashed #000; 
+            width: 480px; height: 280px; background-color: #fff; border: 2px dashed #000; 
             display: flex; flex-wrap: wrap; align-content: flex-start; justify-content: center; padding: 15px; overflow: hidden; 
             box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
@@ -115,75 +113,64 @@
             background-color: #ffffff; color: #000; border: 1px solid #000; 
             width: 42px; height: 58px; display: flex; justify-content: center; align-items: center; 
             font-size: 48px; cursor: default; user-select: none; overflow: hidden; line-height: 1;
-            box-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-family: Arial, sans-serif; flex-shrink: 0;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2); font-family: Arial, sans-serif; flex-shrink: 0; position: relative;
         }
         
         #player-bottom .hand .tile { cursor: pointer; transition: transform 0.1s; border-bottom: 4px solid #000;}
         #player-bottom .hand .tile:hover { transform: translateY(-8px); border-bottom-color: #1976d2; }
         #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 15px; border-color: #1976d2; border-bottom-width: 4px;}
-        
         .tile.selected-swap { transform: translateY(-15px) !important; border-color: #ff9800 !important; box-shadow: 0 0 10px #ff9800 !important; border-bottom-width: 4px;}
 
-        .facedown { 
-            background-color: #e0e0e0; border: 1px solid #666; color: transparent;
-            background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #e0e0e0 25%, #e0e0e0 75%, #ccc 75%, #ccc);
-            background-position: 0 0, 4px 4px; background-size: 8px 8px;
-        }
-        
+        .facedown { background-color: #e0e0e0; border: 1px solid #666; color: transparent; background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #e0e0e0 25%, #e0e0e0 75%, #ccc 75%, #ccc); background-position: 0 0, 4px 4px; background-size: 8px 8px; }
         .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 34px; font-family: "SimHei", "Microsoft YaHei", sans-serif; }
-        .tile-red { color: #d32f2f; font-weight: bold;} 
-        .tile-green { color: #388e3c; font-weight: bold;} 
-        .special-text { font-weight: bold; color: #000; } 
-        
+        .tile-red { color: #d32f2f; font-weight: bold;} .tile-green { color: #388e3c; font-weight: bold;} .special-text { font-weight: bold; color: #000; } 
         .bai-ban { width: 20px; height: 30px; border: 4px solid #1976d2; border-radius: 2px; box-sizing: border-box; }
+        .flower-num { position: absolute; top: -1px; right: -1px; background: #d32f2f; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 4px; font-family: "Courier New", Courier, monospace; border: 1px solid #000; line-height: 1; z-index: 5;}
         
-        .meld { display: flex; gap: 2px; background-color: #f0f0f0; padding: 4px; border: 1px solid #aaa; flex-shrink: 0;}
+        .meld { display: flex; gap: 2px; background-color: #f5f5f5; padding: 4px; border: 1px solid #aaa; flex-shrink: 0;}
         .exposed .tile { width: 34px; height: 48px; font-size: 40px; }
         .exposed .tile.special-text, .exposed .tile.tile-red, .exposed .tile.tile-green { font-size: 26px; }
         .exposed .bai-ban { width: 16px; height: 24px; border-width: 3px; }
+        .exposed .flower-num { font-size: 9px; padding: 1px 3px; }
         
         .discard-pile .tile { width: 30px; height: 42px; font-size: 34px; margin: 1px; border-color: #888; z-index: 2;}
         .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 22px; }
         .discard-pile .bai-ban { width: 14px; height: 22px; border-width: 2px; }
 
+        /* AUDIT LEADERBOARD */
+        #audit-history-container { width: 98vw; max-width: 1300px; background: #fff; border: 3px solid #000; box-shadow: 5px 5px 0px rgba(0,0,0,0.1); margin-bottom: 20px;}
+        #audit-table { width: 100%; border-collapse: collapse; font-family: "Courier New", Courier, monospace; font-size: 11px; }
+        #audit-table th { background: #1a365d; color: #fff; padding: 10px; text-align: left; border: 1px solid #000; text-transform: uppercase; letter-spacing: 1px;}
+        #audit-table td { padding: 10px; border: 1px solid #ccc; color: #111; font-weight: bold;}
+        #audit-table tr:nth-child(even) { background-color: #f9f9f9; }
+
         #action-overlay {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.98); border: 3px solid #d32f2f;
-            padding: 25px 40px; box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            background: rgba(255, 255, 255, 0.98); border: 4px solid #d32f2f;
+            padding: 30px 45px; box-shadow: 0 15px 50px rgba(0,0,0,0.6);
             z-index: 9999; display: none; flex-direction: column; align-items: center;
             max-height: 90vh; overflow-y: auto; width: auto; max-width: 90vw;
         }
-        .overlay-title { font-size: 16px; font-weight: bold; color: #d32f2f; margin-bottom: 15px; letter-spacing: 1px; font-family: "Courier New", Courier, monospace; text-align: center;}
-        .overlay-target-tile { margin-bottom: 20px; transform: scale(1.4); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .overlay-title { font-size: 18px; font-weight: 900; color: #d32f2f; margin-bottom: 20px; letter-spacing: 1px; font-family: "Courier New", Courier, monospace; text-align: center;}
+        .overlay-target-tile { margin-bottom: 25px; transform: scale(1.5); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .action-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%;}
+        
+        .terminal-log { background: #0a0a0a; color: #4caf50; font-family: "Courier New", Courier, monospace; padding: 20px; border: 2px solid #333; width: 100%; box-sizing: border-box; margin-bottom: 20px; text-align: left; font-size: 14px; line-height: 1.6; }
 
-        .terminal-log {
-            background: #111; color: #0f0; font-family: "Courier New", Courier, monospace;
-            padding: 15px; border: 1px solid #555; width: 100%; box-sizing: border-box;
-            margin-bottom: 20px; text-align: left; font-size: 13px; line-height: 1.6;
-        }
-
-        button { 
-            background-color: #e0e0e0; border: 2px solid #000; color: #000; padding: 12px 20px; 
-            font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.1s; letter-spacing: 0.5px;
-            display: flex; align-items: center; justify-content: center; gap: 8px; font-family: "Segoe UI", Arial, sans-serif;
-        }
-        button:hover { background-color: #d0d0d0; box-shadow: 2px 2px 0px #000; transform: translateY(-2px);}
+        button { background-color: #e0e0e0; border: 2px solid #000; color: #000; padding: 12px 20px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.1s; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: "Segoe UI", Arial, sans-serif;}
+        button:hover { background-color: #d0d0d0; box-shadow: 3px 3px 0px #000; transform: translateY(-2px);}
         .btn-hu { border: 2px solid #d32f2f; color: #d32f2f; background-color: #fff; }
         .btn-hu:hover { background-color: #d32f2f; color: #fff;}
         .cancel-btn { border-color: #666 !important; color: #666 !important; background-color: #f9f9f9; width: 100%; margin-top: 15px;}
         .cancel-btn:hover { background-color: #eee; }
 
-        #mas-footer {
-            width: 95vw; max-width: 1250px; text-align: center; color: #666; font-size: 10px;
-            border-top: 1px solid #ccc; padding-top: 10px; font-family: Arial, sans-serif;
-        }
+        #mas-footer { width: 95vw; max-width: 1300px; text-align: center; color: #666; font-size: 10px; border-top: 1px solid #ccc; padding-top: 10px; font-family: Arial, sans-serif; margin-bottom: 20px;}
 
-        /* IPHONE / MOBILE OPTIMIZATION */
         @media screen and (max-width: 850px) {
             body { padding: 0; }
             #mas-navbar { font-size: 9px; padding: 6px 10px; }
-            #mas-header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; margin-bottom: 5px;}
+            .nav-links span { margin-right: 10px; }
+            #mas-header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; margin-bottom: 5px; border-top: 5px solid #1a365d;}
             .header-left h1 { font-size: 18px; }
             
             #ledger-board { flex-wrap: wrap; padding: 5px; gap: 5px;}
@@ -196,34 +183,25 @@
             .board-container { width: 100vw; border: none; box-shadow: none; margin-bottom: 5px;}
             .board { display: flex; flex-direction: column; height: auto; min-height: 75vh; padding: 5px; justify-content: flex-start;}
             
-            .player-frame { 
-                position: relative; width: 100% !important; left: auto !important; top: auto !important; 
-                right: auto !important; bottom: auto !important; transform: none !important; 
-                box-sizing: border-box; padding: 5px; margin-bottom: 5px;
-            }
-            
+            .player-frame { position: relative; width: 100% !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; transform: none !important; box-sizing: border-box; padding: 5px; margin-bottom: 5px;}
             #player-top, #player-left, #player-right { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 4px; padding: 4px; }
             .frame-header { width: 100%; margin-bottom: 2px; font-size: 9px; padding: 2px; }
             
             #player-top .facedown, #player-left .facedown, #player-right .facedown { width: 14px; height: 20px; border-width: 1px;}
             #player-top .tile, #player-left .tile, #player-right .tile { width: 16px; height: 22px; font-size: 16px; }
             #player-top .bai-ban, #player-left .bai-ban, #player-right .bai-ban { width: 8px; height: 12px; border-width: 2px; }
+            .flower-num { font-size: 7px; padding: 1px 2px; top: -2px; right: -2px;}
             
-            .discard-pile { 
-                position: relative; left: auto !important; top: auto !important; transform: none !important; 
-                width: 100%; flex-grow: 1; min-height: 180px; margin: 5px 0; box-sizing: border-box; padding: 5px; justify-content: center;
-            }
+            .discard-pile { position: relative; left: auto !important; top: auto !important; transform: none !important; width: 100%; flex-grow: 1; min-height: 180px; margin: 5px 0; box-sizing: border-box; padding: 5px; justify-content: center;}
             .discard-pile .tile { width: 6vw; height: 8.5vw; font-size: 6vw; margin: 1px; }
             .discard-pile .tile.special-text, .discard-pile .tile.tile-red, .discard-pile .tile.tile-green { font-size: 4.5vw; }
             .discard-pile .bai-ban { width: 2.5vw; height: 4vw; border-width: 1px; }
             
             #player-bottom { padding: 5px 2px 10px 2px; border: 2px solid #1976d2;}
             .hand { gap: 1px; }
-            
             .tile { width: 6.3vw; height: 9vw; font-size: 6vw; border-width: 1px; border-radius: 2px; }
             .tile.special-text, .tile.tile-red, .tile.tile-green { font-size: 4.8vw; }
             .bai-ban { width: 3vw; height: 5vw; border-width: 2px; }
-            
             #player-bottom .hand .tile { border-bottom-width: 2px; }
             #player-bottom .hand .tile:last-child.drawn-tile { margin-left: 2vw;}
             
@@ -233,6 +211,8 @@
             button { width: 100%; padding: 16px; font-size: 13px; margin: 0; justify-content: center;}
             .cancel-btn { margin-top: 5px; }
             .terminal-log { font-size: 11px; padding: 10px; }
+            
+            #audit-history-container { width: 100vw; border-left: none; border-right: none;}
         }
     </style>
 </head>
@@ -240,7 +220,7 @@
 
     <div id="mas-navbar">
         <div class="nav-links">
-            <span>&#9776; MENU</span>
+            <span>&#9776; SYSTEM MENU</span>
             <span>COMPLIANCE MODULES</span>
             <span>RISK ASSESSMENT</span>
             <span>AUDIT TRAIL</span>
@@ -267,7 +247,7 @@
     </div>
 
     <div id="disclaimer">
-        <strong>REGULATORY NOTICE (SEC. 42):</strong> The following matrix represents live asset reconciliation. Authorized entities must declare structural sequences (AUTHORIZE EAT), aggregate identical assets (EXECUTE PONG/KONG), and file immediate compliance reports upon discovering a fully reconciled ledger (FILE AUDIT). The value metric (TAI) evaluates asset purity, prevailing variables, and structural integrity. Transfer of Wildcard Assets (飛) is strictly prohibited.
+        <strong>REGULATORY NOTICE (SEC. 42):</strong> The following matrix represents live asset reconciliation. Authorized entities must declare structural sequences (AUTHORIZE EAT), aggregate identical assets (EXECUTE PONG/KONG), and file immediate compliance reports upon discovering a fully reconciled ledger (FILE AUDIT). The value metric (TAI) evaluates asset purity, prevailing variables, and structural integrity. Transfer of Wildcard Assets (飛) is strictly prohibited. Ting Fei entities must self-draw.
     </div>
 
     <div id="ledger-board">
@@ -286,7 +266,10 @@
     </div>
 
     <div class="board-container">
-        <div class="board-title">FIGURE 1: LIVE ASSET RECONCILIATION MATRIX</div>
+        <div class="board-title">
+            <span>FIGURE 1: LIVE ASSET RECONCILIATION MATRIX</span>
+            <span style="color:#4caf50; font-family: monospace;">UPLINK SECURE</span>
+        </div>
         <div class="board">
             
             <div id="player-top" class="player-frame">
@@ -320,20 +303,36 @@
         </div>
     </div>
 
+    <div id="audit-history-container">
+        <div class="board-title">AUDIT TRAIL & RECONCILIATION LOG</div>
+        <table id="audit-table">
+            <thead>
+                <tr>
+                    <th>ROUND</th>
+                    <th>BENEFICIARY</th>
+                    <th>SOURCE</th>
+                    <th>VALUE (TAI)</th>
+                    <th>CLASSIFICATION SUMMARY</th>
+                </tr>
+            </thead>
+            <tbody id="audit-tbody">
+                </tbody>
+        </table>
+    </div>
+
     <div id="mas-footer">
         <p>Monetary Authority of Singapore © 2026. All Rights Reserved. Not for public distribution.</p>
         <p>Data Classification: CONFIDENTIAL. Compliance Framework ISO/IEC 27001:2022 Verified.</p>
     </div>
 
     <script>
-        // --- 1. SUPERCHARGED EVALUATOR (PERMUTATION ENGINE) ---
+        // --- 1. SUPERCHARGED EVALUATOR (KALONG, TING FEI, GRAND MASTER) ---
         class MahjongEvaluator {
             constructor() {
                 this.FEI = '飛'; 
                 this.FLOWERS = ['🀢','🀣','🀤','🀥', '🀦','🀧','🀨','🀩']; 
                 this.ANIMALS = ['🐱','🐭','🐓','🐛']; 
                 this.WINDS = ['H1', 'H2', 'H3', 'H4']; 
-                
                 this.TILE_MAP = {
                     '🀙':'D1','🀚':'D2','🀛':'D3','🀜':'D4','🀝':'D5','🀞':'D6','🀟':'D7','🀠':'D8','🀡':'D9',
                     '🀐':'B1','🀑':'B2','🀒':'B3','🀓':'B4','🀔':'B5','🀕':'B6','🀖':'B7','🀗':'B8','🀘':'B9',
@@ -342,7 +341,62 @@
                 };
             }
 
-            evaluate(hand, exposedRaw, isZiMo, seatWind, roundWind) {
+            checkStructure(hand14) {
+                let feiCount = hand14.filter(t => t === this.FEI).length;
+                let natHand = hand14.filter(t => t !== this.FEI).map(t => this.TILE_MAP[t] || t);
+                
+                let counts = {};
+                natHand.forEach(t => counts[t] = (counts[t] || 0) + 1);
+                
+                let reqDaSan = Math.max(0, 3-(counts['H5']||0)) + Math.max(0, 3-(counts['H6']||0)) + Math.max(0, 3-(counts['H7']||0));
+                if (reqDaSan <= feiCount) return true; // Da San Yuan is an instant pass
+
+                if (hand14.length === 14) {
+                    if (this.is13Orphans(natHand, feiCount)) return true;
+                    if (this.isNineGates(natHand, feiCount)) return true;
+                    if (this.isSevenPairs(natHand, feiCount)) return true;
+                }
+                if (this.isStandardHu(natHand, feiCount).length > 0) return true;
+                return false;
+            }
+
+            getWaitList(hand13, exposedRaw) {
+                let uniqueTiles = Object.keys(this.TILE_MAP).filter(k => k !== this.FEI);
+                let waits = [];
+                for (let t of uniqueTiles) {
+                    let testHand = [...hand13, t];
+                    // Mentally pass exposed sets by simulating a 14 tile check
+                    let fake14 = [...testHand];
+                    exposedRaw.forEach(m => {
+                        let clean = m.replace(/\*/g, '');
+                        Array.from(clean).forEach(c => {
+                            if(!this.FLOWERS.includes(c) && !this.ANIMALS.includes(c)) fake14.push(c);
+                        });
+                    });
+                    if (this.checkStructure(fake14)) waits.push(t);
+                }
+                return waits;
+            }
+
+            evaluate(hand, exposedRaw, isZiMo, seatWind, roundWind, winningTile = null, gameFlags = {}) {
+                let result = this._evaluateCore(hand, exposedRaw, isZiMo, seatWind, roundWind, winningTile, gameFlags);
+                
+                // FIRST TURN RULES (Tian/Di/Ren Hu Override)
+                if (result.isHu) {
+                    let override = null;
+                    if (gameFlags.isTianHu) override = "Tian Hu (Heavenly Audit)";
+                    else if (gameFlags.isDiHu) override = "Di Hu (Earthly Audit)";
+                    else if (gameFlags.isRenHu) override = "Ren Hu (Human Audit)";
+
+                    if (override) {
+                        result.tai = 5;
+                        result.breakdown = `> ${override} : +5 Tai\n-----------------------\n` + result.breakdown + `\n> FIRST TURN OVERRIDE (MAX TAI)`;
+                    }
+                }
+                return result;
+            }
+
+            _evaluateCore(hand, exposedRaw, isZiMo, seatWind, roundWind, winningTile, gameFlags) {
                 let feiCount = hand.filter(t => t === this.FEI).length;
                 let natHand = hand.filter(t => t !== this.FEI).map(t => this.TILE_MAP[t] || t);
                 
@@ -352,9 +406,14 @@
                 let hasBonus = false;
                 let bonusTai = 0;
                 let mySeatFlower = this.FLOWERS[seatWind];
+                let hasExposedMelds = false;
+                let kongCount = 0;
 
                 exposedRaw.forEach(meld => {
-                    Array.from(meld).forEach(char => {
+                    let isAnKong = meld.includes('*');
+                    let clean = meld.replace(/\*/g, '');
+
+                    Array.from(clean).forEach(char => {
                         if (this.ANIMALS.includes(char)) { hasBonus = true; bonusTai++; }
                         if (this.FLOWERS.includes(char)) {
                             hasBonus = true;
@@ -362,43 +421,55 @@
                         }
                     });
 
-                    let mTiles = Array.from(meld).filter(char => !this.FLOWERS.includes(char) && !this.ANIMALS.includes(char));
+                    let mTiles = Array.from(clean).filter(char => !this.FLOWERS.includes(char) && !this.ANIMALS.includes(char));
                     if (mTiles.length > 0) {
                         let nonFei = mTiles.filter(c => c !== this.FEI);
-                        let isPong = nonFei.every(c => c === nonFei[0]);
+                        let isPong = nonFei.length > 0 && nonFei.every(c => c === nonFei[0]);
+                        
+                        if (mTiles.length === 4 && isPong) kongCount++;
+                        if (!isAnKong) hasExposedMelds = true;
+                        
                         if (isPong) exposedTriplets++; else exposedChows++;
                         
                         let mapped = mTiles.map(c => c === this.FEI ? this.FEI : (this.TILE_MAP[c] || c));
-                        if (mapped.length === 4 && isPong) mapped = mapped.slice(0, 3); 
+                        if (mapped.length >= 3 && isPong) mapped = mapped.slice(0, 3); 
                         natExposedSets.push(mapped);
                     }
                 });
 
+                // GRAND MASTER: 18 Arhats
+                if (kongCount === 4) return { isHu: true, breakdown: "> Shi Ba Luo Han (18 Arhats) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
+
                 let allTiles = [...natHand, ...natExposedSets.flat().filter(t => t !== this.FEI)];
                 
-                // 1. INSTANT WIN GRAND SLAMS (Independent of structure)
+                // GRAND SLAM CHECKS
                 let totalCounts = {};
                 allTiles.forEach(t => totalCounts[t] = (totalCounts[t] || 0) + 1);
                 
                 let reqDaSan = Math.max(0, 3-(totalCounts['H5']||0)) + Math.max(0, 3-(totalCounts['H6']||0)) + Math.max(0, 3-(totalCounts['H7']||0));
-                if (reqDaSan <= feiCount) {
-                    let remConcealed = natHand.filter(t => !['H5','H6','H7'].includes(t));
-                    if (this.isStandardHu(remConcealed, feiCount - reqDaSan).length > 0)
-                        return { isHu: true, breakdown: "> Da San Yuan (Big 3 Dragons) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
-                }
-
-                let reqDaSi = 0;
-                this.WINDS.forEach(w => reqDaSi += Math.max(0, 3-(totalCounts[w]||0)));
-                if (reqDaSi <= feiCount) {
-                    let remConcealed = natHand.filter(t => !this.WINDS.includes(t));
-                    if (this.isStandardHu(remConcealed, feiCount - reqDaSi).length > 0)
-                        return { isHu: true, breakdown: "> Da Si Xi (Big 4 Winds) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
-                }
+                if (reqDaSan <= feiCount) return { isHu: true, breakdown: "> Da San Yuan (Big 3 Dragons) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
 
                 if (hand.length === 14 && this.is13Orphans(natHand, feiCount)) return { isHu: true, breakdown: "> Shi San Yao (13 Orphans) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
                 if (hand.length === 14 && this.isNineGates(natHand, feiCount)) return { isHu: true, breakdown: "> Jiu Bao Lian Deng (9 Gates) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
 
-                // 2. PERMUTATION GENERATOR
+                // KALONG & TING FEI DETECTION
+                let isTingFei = false;
+                let isSingleWait = false;
+
+                if (winningTile) {
+                    let baseHand = [...hand];
+                    let wIdx = baseHand.indexOf(winningTile);
+                    if (wIdx !== -1) baseHand.splice(wIdx, 1);
+                    
+                    let waits = this.getWaitList(baseHand, exposedRaw);
+                    if (waits.length >= 34) isTingFei = true;
+                    if (waits.length === 1) isSingleWait = true;
+                }
+
+                // STRICT TING FEI OVERRIDE: Cannot Gun Hu.
+                if (isTingFei && !isZiMo) return { isHu: false }; 
+
+                // PERMUTATION GENERATOR
                 let standardForms = this.isStandardHu(natHand, feiCount); 
                 let is7Pairs = (hand.length === 14 && this.isSevenPairs(natHand, feiCount));
                 
@@ -412,7 +483,7 @@
 
                 if (validStructures.length === 0) return { isHu: false };
 
-                // 3. GREEDY EVALUATOR (Finds structure with max Tai)
+                // GREEDY EVALUATOR
                 let bestResult = { isHu: false, tai: -1, breakdown: "" };
 
                 for (let struct of validStructures) {
@@ -427,7 +498,7 @@
                     let parsedSets = form.valid ? [...form.bestSets, ...natExposedSets] : natExposedSets;
                     let parsedPair = form.valid ? form.pair : [];
 
-                    // DRAGONS & WINDS (Counts explicitly formed blocks in this permutation)
+                    // Small Dragons & Winds
                     let dragonCounts = {'H5':0, 'H6':0, 'H7':0};
                     let windCounts = {'H1':0, 'H2':0, 'H3':0, 'H4':0};
                     
@@ -447,19 +518,21 @@
                     let dVals = Object.values(dragonCounts);
                     if (dVals.filter(v => v >= 1).length === 2 && dVals.filter(v => v === 0.5).length === 1) hasXiaoSanYuan = true;
 
-                    let hasXiaoSiXi = false;
+                    let hasDaSiXi = false; let hasXiaoSiXi = false;
                     let wVals = Object.values(windCounts);
-                    if (wVals.filter(v => v >= 1).length === 3 && wVals.filter(v => v === 0.5).length === 1) hasXiaoSiXi = true;
+                    if (wVals.filter(v => v >= 1).length === 4) hasDaSiXi = true;
+                    else if (wVals.filter(v => v >= 1).length === 3 && wVals.filter(v => v === 0.5).length === 1) hasXiaoSiXi = true;
 
                     if (hasXiaoSanYuan) scoring.push({name: "Xiao San Yuan (Small 3 Dragons)", tai: 3});
-                    if (hasXiaoSiXi) scoring.push({name: "Xiao Si Xi (Small 4 Winds)", tai: 3});
+                    if (hasDaSiXi && form.valid) scoring.push({name: "Da Si Xi (Big 4 Winds)", tai: 5}); // Form.valid enforces 4 melds + pair
+                    else if (hasXiaoSiXi && form.valid) scoring.push({name: "Xiao Si Xi (Small 4 Winds)", tai: 4});
 
                     if (!hasXiaoSanYuan && form.valid) {
                         if (dragonCounts['H5'] >= 1) scoring.push({name: "Asset: Red Dragon Pong", tai: 1});
                         if (dragonCounts['H6'] >= 1) scoring.push({name: "Asset: Green Dragon Pong", tai: 1});
                         if (dragonCounts['H7'] >= 1) scoring.push({name: "Asset: White Dragon Pong", tai: 1});
                     }
-                    if (!hasXiaoSiXi && form.valid) {
+                    if (!hasDaSiXi && !hasXiaoSiXi && form.valid) {
                         let roundW = this.WINDS[roundWind];
                         let seatW = this.WINDS[seatWind];
                         if (windCounts[roundW] >= 1) scoring.push({name: "Asset: Round Wind Pong", tai: 1});
@@ -467,7 +540,7 @@
                     }
 
                     // YAO JIU (Terminals/Honors)
-                    let isYaoJiu = allTiles.every(t => t.includes('1') || t.includes('9') || t.includes('H'));
+                    let isYaoJiu = allTiles.every(t => t && (t.includes('1') || t.includes('9') || t.includes('H')));
                     if (isYaoJiu) scoring.push({name: "Hun Yao Jiu (Terminals/Honors)", tai: 2});
 
                     let suitsPresent = new Set(allTiles.map(t => t.charAt(0)));
@@ -482,17 +555,26 @@
                     let totalTriplets = exposedTriplets + (form.valid ? form.triplets : 0);
                     let totalChows = exposedChows + (form.valid ? form.chows : 0);
 
-                    if (form.valid && totalChows === 0 && !is7Pairs) {
+                    // Si An Ke & Pong Pong
+                    if (form.valid && totalTriplets === 4 && !hasExposedMelds) {
+                        return { isHu: true, breakdown: "> Si An Ke (4 Concealed Triplets) : +5 Tai\n-----------------------\n> TOTAL RECONCILED TAI : 5 (Max)", tai: 5 };
+                    } else if (form.valid && totalChows === 0 && !is7Pairs) {
                         scoring.push({name: "Pong Pong Hu (All Triplets)", tai: 2});
                     }
 
+                    // Ping Hu (Disabled if Single Wait / Kalong)
                     if (form.valid && totalTriplets === 0 && !is7Pairs) {
-                        if (hasBonus || hasHonors || exposedTriplets > 0) {
-                            scoring.push({name: "Chou Ping Hu (Dirty Sequence)", tai: 1}); 
-                        } else {
-                            scoring.push({name: "Ping Hu (Pure Sequence)", tai: isZiMo ? 5 : 4}); 
+                        if (!isSingleWait) {
+                            if (hasBonus || hasHonors || exposedTriplets > 0) {
+                                scoring.push({name: "Chou Ping Hu (Dirty Sequence)", tai: 1}); 
+                            } else {
+                                scoring.push({name: "Ping Hu (Pure Sequence)", tai: isZiMo ? 5 : 4}); 
+                            }
                         }
                     }
+
+                    if (isZiMo && !hasExposedMelds) scoring.push({name: "Men Qing (Fully Concealed)", tai: 1});
+                    if (isZiMo && gameFlags.isReplacementDraw) scoring.push({name: "Replacement Draw (Hua/Gang Shang)", tai: 1});
 
                     if (bonusTai > 0) {
                         scoring.push({name: "Bonus Assets (Animals/Valid Flowers)", tai: bonusTai});
@@ -652,6 +734,13 @@
         let selectedSwaps = [];
         let swapCount = 0;
         let pendingHuResult = null; 
+        
+        // Trackers for Turn 1 overrides
+        let totalDiscardsThisRound = 0;
+        let discardsByPlayer = [0, 0, 0, 0];
+        let isReplacementDraw = false;
+        
+        let auditLog = [];
 
         function getSeatWind(playerIndex) { return (playerIndex - dealer + 4) % 4; }
         function getWindName(index) { return ['EAST', 'SOUTH', 'WEST', 'NORTH'][index]; }
@@ -666,9 +755,23 @@
                 if (i === dealer) el.classList.add('active-dealer');
                 
                 let seatStr = getWindName(getSeatWind(i));
-                let labelTitle = i === 0 ? `NODE 01: LEAD AUDITOR (${seatStr}) - SECURE TERMINAL` : `NODE 0${i+1} (${seatStr}) - UPLINK ACTIVE`;
-                document.getElementById(`label-${i}`).innerText = labelTitle;
+                let zhuangStr = (i === dealer) ? `<span class="zhuang-badge">[ZHUANG]</span>` : '';
+                let labelTitle = i === 0 ? `NODE 01: LEAD AUDITOR (${seatStr}) ${zhuangStr}` : `NODE 0${i+1} (${seatStr}) ${zhuangStr}`;
+                document.getElementById(`label-${i}`).innerHTML = labelTitle;
             }
+        }
+
+        function updateAuditLogUI() {
+            let tbody = document.getElementById('audit-tbody');
+            tbody.innerHTML = auditLog.map(log => `
+                <tr>
+                    <td>${log.round}</td>
+                    <td>${log.winner}</td>
+                    <td>${log.source}</td>
+                    <td>${log.tai}</td>
+                    <td>${log.method}</td>
+                </tr>
+            `).join('');
         }
 
         function buildDeck() {
@@ -685,17 +788,24 @@
 
         function isBonusTile(tile) { return FLOWERS.includes(tile) || ANIMALS.includes(tile); }
 
-        function drawTile(playerIdx) {
+        function drawTile(playerIdx, forceReplacement = false) {
             if (deck.length === 0) return null;
             let tile = deck.pop();
-            while (isBonusTile(tile)) {
+            let wasBonus = false;
+            
+            while (tile && isBonusTile(tile)) {
+                wasBonus = true;
                 exposed[playerIdx].push(tile);
                 if (deck.length === 0) return null;
                 tile = deck.pop();
             }
-            hands[playerIdx].push(tile);
-            document.getElementById('wall-count').innerText = deck.length;
-            return tile;
+            if (tile) {
+                hands[playerIdx].push(tile);
+                document.getElementById('wall-count').innerText = deck.length;
+                if (playerIdx === 0) { isReplacementDraw = forceReplacement || wasBonus; }
+                return tile;
+            }
+            return null;
         }
 
         function showOverlay(htmlContent, targetTile = null, title = "AUTHORIZATION REQUIRED") {
@@ -718,8 +828,10 @@
         }
 
         function initRound() {
+            clearTimeout(turnTimer);
             hands = { 0: [], 1: [], 2: [], 3: [] }; exposed = { 0: [], 1: [], 2: [], 3: [] };
             turn = dealer; swapCount = 0; selectedSwaps = []; pendingHuResult = null;
+            isReplacementDraw = false; totalDiscardsThisRound = 0; discardsByPlayer = [0,0,0,0];
             updateLedgerUI();
             document.getElementById('discard').innerHTML = '<div class="discard-title">LIQUIDATED ASSETS<br>POOL</div>';
             
@@ -759,6 +871,21 @@
             }
         }
 
+        function getAiSwap(aiIndex) {
+            let h = hands[aiIndex];
+            let suits = { D: 0, B: 0, C: 0 };
+            h.forEach(t => { if(t!==FEI && !WINDS.includes(t) && !DRAGONS.includes(t) && !isBonusTile(t)) suits[t.charAt(0)]++; });
+            let targetSuit = Object.keys(suits).reduce((a, b) => suits[a] < suits[b] ? a : b);
+            let valid = h.filter(t => t!==FEI && t.charAt(0) === targetSuit);
+            if(valid.length < 3) {
+                let remaining = h.filter(t => t!==FEI && !valid.includes(t));
+                valid.push(...remaining);
+            }
+            let out = [];
+            for(let i=0; i<3; i++) { let t = valid[i]; out.push(t); h.splice(h.indexOf(t), 1); }
+            return out;
+        }
+
         function executeSwap() {
             hideOverlay();
             isHumanTurn = false;
@@ -767,15 +894,7 @@
             let p0_out = [];
             selectedSwaps.forEach(idx => p0_out.push(hands[0].splice(idx, 1)[0]));
             
-            let ai_out = {1: [], 2: [], 3: []};
-            for(let i=1; i<=3; i++) {
-                let valid = hands[i].filter(t => t!==FEI);
-                for(let j=0; j<3; j++) {
-                    let t = valid.splice(Math.floor(Math.random()*valid.length), 1)[0];
-                    ai_out[i].push(t);
-                    hands[i].splice(hands[i].indexOf(t), 1);
-                }
-            }
+            let ai_out = {1: getAiSwap(1), 2: getAiSwap(2), 3: getAiSwap(3)};
 
             hands[3].push(...p0_out);
             hands[2].push(...ai_out[3]);
@@ -796,7 +915,7 @@
         }
 
         function triggerWin(winnerIndex, shooterIndex = null) {
-            clearTimeout(turnTimer); // FIX: PAUSE TIMER FOR READING
+            clearTimeout(turnTimer); 
             hideOverlay();
             if (!pendingHuResult) return;
             let isZiMo = (shooterIndex === null);
@@ -804,15 +923,29 @@
             
             let payout = 0; let base = 0;
             if (isZiMo) {
-                if(t===1) base = 4; else if(t===2) base = 5; else if(t===3) base = 7; else if(t===4) base = 12; else if(t===5) base = 22;
+                if(t===1) base = 4; else if(t===2) base = 5; else if(t===3) base = 7; else if(t===4) base = 12; else if(t>=5) base = 22;
                 payout = base * 3;
                 for(let i=0; i<4; i++) { if(i!==winnerIndex) chips[i] -= base; }
                 chips[winnerIndex] += payout;
             } else {
-                if(t===2) payout = 7; else if(t===3) payout = 11; else if(t===4) payout = 20; else if(t===5) payout = 40;
+                if(t===2) payout = 7; else if(t===3) payout = 11; else if(t===4) payout = 20; else if(t>=5) payout = 40;
                 chips[shooterIndex] -= payout;
                 chips[winnerIndex] += payout;
             }
+
+            let winnerName = winnerIndex === 0 ? "NODE 01 (YOU)" : `NODE 0${winnerIndex+1}`;
+            let sourceName = isZiMo ? "INTERNAL (SELF-DRAW)" : (shooterIndex === 0 ? "NODE 01 (YOU)" : `NODE 0${shooterIndex+1}`);
+            let summaryLine = pendingHuResult.breakdown.split('\n')[0].replace('> ', '');
+            
+            auditLog.unshift({
+                round: getWindName(roundWind),
+                winner: winnerName,
+                source: sourceName,
+                tai: pendingHuResult.tai,
+                method: summaryLine
+            });
+            if (auditLog.length > 8) auditLog.pop();
+            updateAuditLogUI();
 
             if (winnerIndex !== dealer) {
                 dealer = (dealer + 1) % 4;
@@ -833,8 +966,19 @@
         }
 
         function triggerDraw() {
-            clearTimeout(turnTimer); // FIX: PAUSE TIMER
+            clearTimeout(turnTimer);
             hideOverlay();
+            
+            auditLog.unshift({
+                round: getWindName(roundWind),
+                winner: "N/A",
+                source: "N/A",
+                tai: "-",
+                method: "DRAW (LEDGER DEPLETED)"
+            });
+            if (auditLog.length > 8) auditLog.pop();
+            updateAuditLogUI();
+
             dealer = (dealer + 1) % 4;
             if (dealer === 0) roundWind = (roundWind + 1) % 4;
             updateLedgerUI();
@@ -850,12 +994,31 @@
             else if (char === '中') { extraClass = 'tile-red'; }
             else if (char === '發') { extraClass = 'tile-green'; }
             else if (char === '白') { content = '<div class="bai-ban"></div>'; }
+            
+            let fNum = '';
+            if (['🀢', '🀦'].includes(char)) fNum = '1';
+            if (['🀣', '🀧'].includes(char)) fNum = '2';
+            if (['🀤', '🀨'].includes(char)) fNum = '3';
+            if (['🀥', '🀩'].includes(char)) fNum = '4';
+            
+            if (fNum) content = `<div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">${char}<span class="flower-num">${fNum}</span></div>`;
+
             if (isBonusTile(char) && isExposed) { extraClass = ''; } 
             return `<div class="tile ${extraClass}">${content}</div>`;
         }
 
         function renderMeldHtml(meldString) {
-            let tilesHtml = Array.from(meldString).map(char => getTileHTML(char, true)).join('');
+            let cleanString = meldString.replace(/\*/g, '');
+            let isAnKong = meldString.includes('*');
+            
+            if(isAnKong && meldString.length > 4) { 
+               return `<div class="meld">
+                    <div class="tile facedown"></div><div class="tile facedown"></div>
+                    <div class="tile facedown"></div><div class="tile facedown"></div>
+               </div>`;
+            }
+
+            let tilesHtml = Array.from(cleanString).map(char => getTileHTML(char, true)).join('');
             return `<div class="meld">${tilesHtml}</div>`;
         }
 
@@ -892,7 +1055,16 @@
             isHumanTurn = true;
             document.getElementById('status').innerText = "AUDIT REQUIRED: Awaiting Disposal or Action.";
             
-            let huResult = evaluator.evaluate(hands[0], exposed[0], true, getSeatWind(0), roundWind); 
+            let winningTile = hands[0][hands[0].length - 1];
+            let flags = {
+                isReplacementDraw: isReplacementDraw,
+                isTianHu: dealer === 0 && totalDiscardsThisRound === 0,
+                isDiHu: false,
+                isRenHu: dealer !== 0 && discardsByPlayer[0] === 0
+            };
+
+            let huResult = evaluator.evaluate(hands[0], exposed[0], true, getSeatWind(0), roundWind, winningTile, flags); 
+            
             let counts = {};
             hands[0].forEach(t => counts[t] = (counts[t] || 0) + 1);
             let possibleKongs = [];
@@ -922,14 +1094,14 @@
             hideOverlay();
             if (type === 'an') {
                 for(let i=0; i<4; i++) hands[0].splice(hands[0].indexOf(tile), 1);
-                exposed[0].push(tile+tile+tile+tile);
+                exposed[0].push(tile+tile+tile+tile+'*');
             } else {
                 hands[0].splice(hands[0].indexOf(tile), 1);
                 exposed[0][exposed[0].indexOf(tile+tile+tile)] = tile+tile+tile+tile;
             }
-            document.getElementById('status').innerText = "LOG: Kong Liquidated. Sourcing replacement asset...";
+            document.getElementById('status').innerText = "LOG: Block Consolidated. Sourcing replacement asset...";
             
-            let drawn = drawTile(0);
+            let drawn = drawTile(0, true);
             if (!drawn) { triggerDraw(); return; }
             
             renderAll();
@@ -941,8 +1113,11 @@
             if (hands[0][index] === FEI) { document.getElementById('status').innerText = "COMPLIANCE VIOLATION: Wildcard (飛) cannot be disposed."; return; }
 
             isHumanTurn = false;
+            isReplacementDraw = false;
             hideOverlay();
             const discarded = hands[0].splice(index, 1)[0];
+            discardsByPlayer[0]++;
+            totalDiscardsThisRound++;
             
             let tempDiv = document.createElement('div');
             tempDiv.innerHTML = getTileHTML(discarded, false, true);
@@ -951,6 +1126,45 @@
             hands[0].sort();
             renderAll();
             processClaims(discarded, 0); 
+        }
+
+        function getAiDiscard(aiIndex) {
+            let h = hands[aiIndex];
+            let valid = h.map((t, idx) => ({t, idx})).filter(x => x.t !== FEI);
+            if(valid.length === 0) return 0; 
+
+            let dangerSuits = { D: 0, B: 0, C: 0 };
+            for(let i=0; i<4; i++) {
+                if(i === aiIndex) continue;
+                let sCounts = { D: 0, B: 0, C: 0 };
+                exposed[i].forEach(m => {
+                    let first = m.replace(/\*/g, '')[0];
+                    if(first && ['D','B','C'].includes(first.charAt(0))) sCounts[first.charAt(0)]++;
+                });
+                Object.keys(sCounts).forEach(k => { if(sCounts[k] >= 2) dangerSuits[k] += 500; }); 
+            }
+
+            let bestIdx = valid[0].idx;
+            let minScore = 99999;
+            
+            valid.forEach(v => {
+                let score = 0; let t = v.t; let cCount = h.filter(x => x === t).length;
+                if (cCount >= 2) score += 1000;
+                let isHonour = WINDS.includes(t) || DRAGONS.includes(t);
+                if (!isHonour) {
+                    let suit = t.charAt(0); let num = parseInt(t.charAt(1));
+                    score += dangerSuits[suit] || 0;
+                    if (h.includes(suit+(num+1))) score += 200;
+                    if (h.includes(suit+(num-1))) score += 200;
+                    if (num === 1 || num === 9) score -= 50;
+                } else {
+                    if (cCount === 1) score -= 100;
+                }
+                if (score < minScore) { minScore = score; bestIdx = v.idx; }
+            });
+
+            if(Math.random() < 0.2) return valid[Math.floor(Math.random() * valid.length)].idx;
+            return bestIdx;
         }
 
         function doAiTurn() {
@@ -962,10 +1176,10 @@
             renderAll();
 
             setTimeout(() => {
-                let validDiscards = hands[turn].map((tile, idx) => ({ tile, idx })).filter(item => item.tile !== FEI);
-                if (validDiscards.length === 0) validDiscards = [{ idx: 0 }];
-                const randomChoice = Math.floor(Math.random() * validDiscards.length);
-                const discarded = hands[turn].splice(validDiscards[randomChoice].idx, 1)[0];
+                let discardIdx = getAiDiscard(turn);
+                const discarded = hands[turn].splice(discardIdx, 1)[0];
+                discardsByPlayer[turn]++;
+                totalDiscardsThisRound++;
                 
                 let tempDiv = document.createElement('div');
                 tempDiv.innerHTML = getTileHTML(discarded, false, true);
@@ -997,8 +1211,25 @@
 
             if (discardedTile !== FEI) {
                 for (let i = 1; i <= 3; i++) {
-                    if (i !== discardingPlayer && hands[i].filter(t => t === discardedTile).length >= 2) {
-                        executeAiClaim(i, 'pong', discardedTile, [discardedTile, discardedTile]); return;
+                    if (i !== discardingPlayer) {
+                        let tempH = [...hands[i], discardedTile];
+                        let aiFlags = {
+                            isReplacementDraw: false,
+                            isTianHu: false,
+                            isDiHu: totalDiscardsThisRound === 1 && dealer === discardingPlayer,
+                            isRenHu: false
+                        };
+                        let hRes = evaluator.evaluate(tempH, exposed[i], false, getSeatWind(i), roundWind, discardedTile, aiFlags);
+                        if (hRes.isHu && hRes.tai >= 2) {
+                            pendingHuResult = hRes;
+                            triggerWin(i, discardingPlayer);
+                            return; 
+                        }
+                        if (hands[i].filter(t => t === discardedTile).length >= 2) {
+                            if(Math.random() > 0.3) { 
+                                executeAiClaim(i, 'pong', discardedTile, [discardedTile, discardedTile]); return;
+                            }
+                        }
                     }
                 }
             }
@@ -1008,7 +1239,14 @@
                 let canClaim = false;
                 
                 let tempHand = [...hands[0], discardedTile];
-                let huResult = evaluator.evaluate(tempHand, exposed[0], false, getSeatWind(0), roundWind); 
+                let flags = {
+                    isReplacementDraw: false,
+                    isTianHu: false,
+                    isDiHu: totalDiscardsThisRound === 1 && dealer === discardingPlayer,
+                    isRenHu: false
+                };
+
+                let huResult = evaluator.evaluate(tempHand, exposed[0], false, getSeatWind(0), roundWind, discardedTile, flags); 
                 
                 if (huResult.isHu && huResult.tai >= 2) {
                     pendingHuResult = huResult;
@@ -1078,10 +1316,10 @@
             renderAll();
             turn = aiIndex;
             setTimeout(() => {
-                let validDiscards = hands[turn].map((tile, idx) => ({ tile, idx })).filter(item => item.tile !== FEI);
-                if (validDiscards.length === 0) validDiscards = [{ idx: 0 }];
-                const randomChoice = Math.floor(Math.random() * validDiscards.length);
-                const discarded = hands[turn].splice(validDiscards[randomChoice].idx, 1)[0];
+                let discardIdx = getAiDiscard(turn);
+                const discarded = hands[turn].splice(discardIdx, 1)[0];
+                discardsByPlayer[turn]++;
+                totalDiscardsThisRound++;
                 
                 let tempDiv = document.createElement('div');
                 tempDiv.innerHTML = getTileHTML(discarded, false, true);
@@ -1100,18 +1338,20 @@
             if (type === 'pong') {
                 for(let k=0; k<2; k++) hands[0].splice(hands[0].indexOf(tile), 1);
                 exposed[0].push(tile+tile+tile);
+                renderAll();
+                turn = 0; 
+                isHumanTurn = true;
+                document.getElementById('status').innerText = `LOG: PONG Processed. Awaiting Disposal.`;
             } else if (type === 'kong') {
                 for(let k=0; k<3; k++) hands[0].splice(hands[0].indexOf(tile), 1);
                 exposed[0].push(tile+tile+tile+tile);
                 
-                let drawn = drawTile(0); 
+                let drawn = drawTile(0, true); 
                 if (!drawn) { triggerDraw(); return; }
+                
+                renderAll();
+                startHumanTurn(); 
             }
-            
-            renderAll();
-            turn = 0; 
-            isHumanTurn = true;
-            document.getElementById('status').innerText = `LOG: ${type.toUpperCase()} Processed. Awaiting Disposal.`;
         }
 
         function executeHumanChi(tile, use1, use2) {
@@ -1138,6 +1378,7 @@
             
             turn = (currentPlayer + 1) % 4;
             if (turn === 0) { 
+                isReplacementDraw = false;
                 let drawn = drawTile(0); 
                 if (!drawn) { triggerDraw(); return; }
                 startHumanTurn(); 
